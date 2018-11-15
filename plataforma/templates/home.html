@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<!--
+	Intensify by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Livofive</title>
+		{% load static %}
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- Estilos -->
+		<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+		<link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+		<link href="{% static 'css/home.css' %}" rel="stylesheet">
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header">
+				<nav class="left">
+					<a href="#menu"><span>Menu</span></a>
+				</nav>
+				<a href="{% url 'home' %}" class="logo">Libolive</a>
+				<nav class="right">
+					<a class="button alt" href="{% url 'signup' %}">Registro</a>
+					<a class="button" href="{% url 'login' %}">Acceder</a>
+				</nav>
+			</header>
+
+		<!-- Menu -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="{% url 'home' %}">Inicio</a></li>
+					<li><a class="scrolly" href="#one">Sobre nosotros</a></li>
+					<li><a href="elements.html">Elements</a></li>
+				</ul>
+				<ul class="actions vertical">
+					<li><a class="button fit" href="{% url 'login' %}">Acceder</a></li>
+				</ul>
+			</nav>
+
+		<!-- Banner -->
+		{% load random_int %}
+			<section id="banner" style="background-image: url({% random_bg %});">
+				<div class="content">
+					<h1>Sabemos que siempre deseas saber de Él.</h1>
+					<p>Con LiboLive lo puedes monitorear cuando quieras y desde donde quieras.</p>
+					<ul class="actions">
+						<li><a href="{% url 'signup' %}" class="button scrolly">Crear cuenta</a></li>
+					</ul>
+				</div>
+				<!-- <svg id="svg-sprite">
+					<symbol id="paw" viewBox="0 0 249 209.32">
+					<image xlink:href="{% static 'images/footprint-dog.png' %}" x="0" y="0" height="100px" width="100px"></image>
+					</symbol>
+				</svg>
+				<div class="ajax-loader">
+					<div class="paw"><svg class="icon"><use xlink:href="#paw"></use></svg></div>
+					<div class="paw"><svg class="icon"><use xlink:href="#paw"></use></svg></div>
+					<div class="paw"><svg class="icon"><use xlink:href="#paw"></use></svg></div>
+					<div class="paw"><svg class="icon"><use xlink:href="#paw"></use></svg></div>
+					<div class="paw"><svg class="icon"><use xlink:href="#paw"></use></svg></div>
+					<div class="paw"><svg class="icon"><use xlink:href="#paw"></use></svg></div>
+				  
+					  <div class="paw"><svg class="icon"><use xlink:href="#paw"></use></svg></div>
+					<div class="paw"><svg class="icon"><use xlink:href="#paw"></use></svg></div>
+					<div class="paw"><svg class="icon"><use xlink:href="#paw"></use></svg></div>
+					<div class="paw"><svg class="icon"><use xlink:href="#paw"></use></svg></div>
+				</div> -->
+			</section>
+
+		<!-- One -->
+			<section id="one" class="wrapper">
+				<div class="title">
+					<h2>Estamos para acercarte a tu mascota</h2>
+					<p>Conoce un poco a cerca de LiboLive</p>
+				</div>
+				<div class="inner flex flex-3">
+					<div class="flex-item left">
+						<div>
+							<h3>Nosotros</h3>
+							<p>te ofrecemos la solución que necesitabas para seguir en contacto con tu mascota</p>
+						</div>
+						<div>
+							<h3>Por ti </h3>
+							<p>La estabilidad  y confiabilidad de nuestro servicio permite una experiencia placentera</p>
+						</div>
+					</div>
+					<div class="flex-item image fit round">
+						<img src="{% static 'images/pic01.jpg' %}" alt="" />
+					</div>
+					<div class="flex-item right">
+						<div>
+							<h3>Dónde encontrarnos</h3>
+							<p>Pregunta en tu veterinaria de confianza si cuenta con los servicios de LiboLive para acceder a nuestros beneficios</p>
+						</div>
+						<div>
+							<h3>Suscipit nibh dolore</h3>
+							<p>Pellentesque egestas sem. Suspendisse<br /> modo ullamcorper feugiat lorem.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		<!-- Two -->
+			<section id="two" class="wrapper style1 special">
+				<div class="inner">
+					<h2>Feugiat lorem</h2>
+					<figure>
+					    <blockquote>
+					        "Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra<br /> magna etiam lorem ultricies in diam. Sed arcu cras consequat."
+					    </blockquote>
+					    <footer>
+					        <cite class="author">Jane Anderson</cite>
+					        <cite class="company">CEO, Untitled</cite>
+					    </footer>
+					</figure>
+				</div>
+			</section>
+
+		<!-- Three -->
+			<section id="three" class="wrapper">
+				<div class="inner flex flex-3">
+					{% for entrada in entradas %}
+					<div class="flex-item box">
+						{% if entrada.image %}
+						<div class="image fit">
+							<img src="{{entrada.image.url}}" alt="" />
+						</div>
+						{% endif %}
+						<div class="content">
+							<a href="{% url 'pages:page' entrada.id entrada.title|slugify %}">
+								<h3>{{ entrada.title }}</h3>
+								<p>{{entrada.content|striptags|safe|truncatechars:"100"}}</p>
+							</a>
+							<em> 
+							{% for categoria in entrada.categories.all %}
+								<a href="{% url 'pages:category' categoria.id %}" class="link">{{categoria.name}}</a>{% if not forloop.last %},{% endif %}
+							{% endfor %}
+							</em>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<h2>Get In Touch</h2>
+					<ul class="actions">
+						<li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
+						<li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
+						<li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
+					</ul>
+				</div>
+				<div class="copyright">
+					&copy; Untitled. Design <a href="#">name</a>. Images <a href="https://unsplash.com">Unsplash</a>.
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'js/jquery.min.js' %}"></script>
+			<script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'js/skel.min.js' %}"></script>
+			<script src="{% static 'js/util.js' %}"></script>
+			<script src="{% static 'js/main.js' %}"></script>
+
+	</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends 'registration/base_registration.html' %}
+{% load static %}
+{% block title %}Iniciar sesión{% endblock %}
+{% block titleContent %}Iniciar sesión{% endblock %}
+{% block content %}
+<style>.errorlist{color:red;}</style>
+<main role="main">
+    <div class="row mt-3">
+      <div class="col-md-10 col-md-offset-1">
+          {% if 'register' in request.GET  %}
+            <p style="color:green;">Usuario registrado correctamente, ya puedes identificarte.</p>
+          {% endif %}
+        <form action="" method="post">{% csrf_token %}
+          {% if form.non_field_errors %}
+            <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
+          {% endif %}
+          <p>
+            <input type="text" name="username" autofocus maxlength="254" required
+              id="id_username" class="form-control" placeholder="Nombre de usuario"/>
+          </p>
+          <p>
+            <input type="password" name="password" required
+              id="id_password" class="form-control" placeholder="Contraseña"/>
+          </p>
+          <p><input type="submit" class="btn-regis" value="Acceder"></p>
+        </form>
+        <p>
+          ¿Ha olvidado su clave? Puede restaurarla <a href="{% url 'password_reset' %}">aquí</a>.
+        </p>
+        <p>
+          ¿Aún no tienes cuenta? <a href="{% url 'signup' %}">Regístrate</a>.
+        </p>
+      </div>
+  </div>
+</main>
+{% endblock %}

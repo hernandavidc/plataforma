@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Libolive - plataforma</title>
+    {% load static %}
+    {% load rol %}
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+    <!-- Estilos -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <!-- WRAPPER -->
+    <div id="wrapper">
+      <!-- Navegación -->
+      <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="brand">
+            <a href="{% url 'home' %}" class="logo">Libolive</a>
+          </div>
+          <div class="container-fluid">
+            <div class="navbar-btn">
+              <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-arrow-circle-o-left"></i></button>
+            </div>
+             <!-- search 
+            <form class="navbar-form navbar-left">
+              <div class="input-group">
+                <input type="text" value="" class="form-control" placeholder="Search dashboard...">
+                <span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+              </div>
+            </form>-->
+            <div id="navbar-menu">
+              <ul class="nav navbar-nav navbar-right">
+                 <!-- Notificacion 
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+                    <i class="lnr lnr-alarm"></i>
+                    <span class="badge bg-danger">5</span>
+                  </a>
+                  <ul class="dropdown-menu notifications">
+                    <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
+                    <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
+                    <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
+                    <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
+                    <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
+                    <li><a href="#" class="more">See all notifications</a></li>
+                  </ul>
+                </li>-->
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {% if request.user.perfil.avatar %}
+                      <img src="{{request.user.perfil.avatar.url}}" class="img-fluid profile-avatar img-circle">
+                    {% else %}
+                      <img src="{% static 'registration/img/no-avatar.jpg' %}" class="img-fluid profile-avatar img-circle">
+                    {% endif %}
+                    <span>{{request.user.username}}</span> <i class="fa fa-angle-down"></i></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'profile' %}">Editar</a></li>
+                    <li><a href="{% url 'logout' %}">Salir</a></li>
+                  </ul>
+                </li>
+                <!-- <li>
+                  <a class="update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
+                </li> -->
+              </ul>
+            </div>
+          </div>
+        </nav>
+      <!-- LEFT SIDEBAR -->
+      <div id="sidebar-nav" class="sidebar">
+			<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 95%;"><div class="sidebar-scroll" style="overflow: hidden; width: auto; height: 95%;">
+				<nav>
+					<ul class="nav">
+            <li><a href="{% url 'profiles:inicio' %}" class="{% if 'inicio' in request.path %}active{% endif %}"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
+            {% if rol == c or rol == 'c' %}
+						<li><a href="{% url 'pet_list' %}" class="{% if 'mascotas' in request.path %}active{% endif %}"><i class="fa fa-paw"></i> <span>Mis mascotas</span></a></li>
+            <li><a href="{% url 'servicios_list' %}" class="{% if 'servicios' in request.path %}active{% endif %}"><i class="fa fa-folder-open"></i> <span>Servicios</span></a></li>
+            {% elif rol == v or rol == 'v' %}
+						<li><a href="{% url 'pet_list' %}" class="{% if 'mascotas' in request.path %}active{% endif %}"><i class="fa fa-paw"></i> <span>Mascotas</span></a></li>
+            <li><a href="{% url 'camara_list' %}" class="{% if 'camaras' in request.path %}active{% endif %}"><i class="fa fa-camera"></i> <span>Camaras</span></a></li>
+            <li><a href="{% url 'servicios_list' %}" class="{% if 'servicios' in request.path %}active{% endif %}"><i class="fa fa-folder-open"></i> <span>Servicios</span></a></li>
+            {% endif %}
+						<li>
+							<a href="#subPages" data-toggle="collapse" class="{% if 'cuenta' in request.path %}active{% endif %} collapsed"><i class="fa fa-user-o"></i> <span>Perfil</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<div id="subPages" class="collapse ">
+								<ul class="nav">
+                    <li><a href="{% url 'profile' %}">Editar</a></li>
+                    <li><a href="{% url 'logout' %}">Salir</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</nav>
+			</div><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 412.844px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+		</div>
+      <!-- END LEFT SIDEBAR -->
+      <!-- MAIN -->
+      <div class="main">
+      <!-- MAIN CONTENT -->
+        <div class="main-content">
+          <div class="container-fluid">
+              {% if 'ok' in request.GET and 'mascotas' in request.path %}
+                <p class="bg-info">
+                  Mascota agregada correctamente. 
+                </p>
+              {% elif 'ok' in request.GET and 'servicios' in request.path %}
+                <p class="bg-info">
+                  Servicio agregado correctamente. 
+                </p>
+              {% elif 'noM' in request.GET and 'servicios' in request.path %}
+                <p class="bg-info">
+                  Error al agregar el servicio, la mascota no corresponde con la cedula. 
+                </p>
+              {% elif 'noF' in request.GET and 'servicios' in request.path %}
+                <p class="bg-info">
+                  Error al agregar el servicio, la mascota tiene un servicio activo. 
+                </p>
+              {% endif %}
+            <!-- TITLE CONTENT -->
+            <div class="panel panel-headline">
+              <div class="panel-heading">
+                <h3 class="panel-title">{% block title %}{% if request.user.is_authenticated %}{{request.user.username}}{% endif%}{% endblock %}</h3>
+                <div class="panel-body">
+                    <div class="row">
+                        <!-- CONTENT -->
+                        {% block content %}{% endblock %}
+                        <!-- END CONTENT -->
+                    </div>
+                  </div>
+              </div>
+            </div>
+            {% block contentNext %}{% endblock %}
+            <!-- END TITLE CONTENT -->
+          </div>
+        </div>
+      <!-- END MAIN CONTENT -->
+      </div>
+      <!-- END MAIN -->
+    </div>
+
+      
+      <!-- Javascript -->
+      <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+      <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'vendor/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+      <script src="{% static 'js/common.js' %}"></script>
+      {% block Js %}{% endblock %}
+  </body>
+</html>

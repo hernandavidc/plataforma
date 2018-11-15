@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %} Mascota {% endblock %}
+{% block content %}
+<div class="col-md-6 col-sm-12">
+    <form method="post">{% csrf_token %}
+        {{ form }}
+        <div class="text-center" style="margin-top:20px;">
+            <input class="btn btn-primary btn-block" type="submit" value="Update" />
+        </div>
+    </form>
+</div>
+<div class="col-md-6 col-sm-12">
+    <h3>Anotaciones:</h3>
+    <!-- Formulario de envio -->
+    <textarea id="content" class="form-control mb-2" rows="3" placeholder="Escribe tu anotación aquí"></textarea>
+    <br>
+    <button id="send" class="btn btn-primary btn-block" disabled>Enviar</button>
+    <div id="anotaciones" style="margin-top:25px;">
+        {% for anotacion in anotaciones %}
+            <p>{{anotacion.texto}}</p>
+            <hr>
+        {% endfor %}
+    </div>
+</div>
+<div class="col-md-6 col-sm-12">
+    <h3>Historial de servicios:</h3>
+    {% for servicio in servicios %}
+        <p>Fecha incio: {{servicio.fechaInicio}} - Fecha salida: {{servicio.fechaFin}}</p>
+        <p>Tipo: {{servicio.tipo.nombre}}</p>
+        <hr>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block Js %}
+<script>
+    $('input').addClass("form-control");
+    $('select').addClass("form-control");
+    $('textarea').addClass("form-control");
+</script>
+<script>
+        var send = document.getElementById("send");
+        send.addEventListener("click", () => {
+          var content = encodeURIComponent(document.getElementById("content").value);
+          if (content.length > 0){
+            document.getElementById("content").value = '';
+            send.disabled = true;
+            const url = "{% url 'anotacion_add' mascotaId %}" + "?content=" + content;
+            fetch(url, {'credentials':'include'}).then(response => response.json()).then((data) => {
+              if (data.created) {
+                // Si no hay redirección creamos una nueva capa dinámicamente con el mensaje
+                var message = document.createElement('div');
+                message.classList.add('mine', 'mb-3');
+                message.innerHTML = '<small><i>Hace unos segundos</i></small><br>'+ decodeURIComponent(content)+"<hr><br>";
+                document.getElementById("anotaciones").insertAdjacentElement('beforebegin', message);      
+              } else {
+                // err
+                console.log("Algo ha fallado y el mensaje no se ha podido añadir.")
+              }
+            })
+          }
+        })
+      
+        //Activar o desactivar el boton si hay o no mjs
+        var content = document.getElementById("content");
+        content.addEventListener("keyup", function(){
+          if(!this.checkValidity() || !this.value){
+            send.disabled = true;
+          }
+          else{
+            send.disabled = false;
+          }
+        })
+      </script>
+{% endblock %}

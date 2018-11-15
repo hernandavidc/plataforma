@@ -1,0 +1,38 @@
+{% extends 'base_blog.html' %}
+{% load static %}
+{% block title %}{{page.title}}{% endblock %}
+{% block content %}
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('{{page.image.url}}')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>{{page.title}}</h1>
+          <span class="subheading">Publicado por <em><b>{{page.author}}</b></em> en
+            <em> 
+             {% for categoria in page.categories.all %}
+              <a href="{% url 'pages:category' categoria.id %}" class="link">{{categoria.name}}</a>{% if not forloop.last %},{% endif %}
+             {% endfor %}
+            </em>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{% include "pages/includes/pages_menu.html" %}
+ <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto">
+        <div>
+          {{page.content|safe}}
+          {% if request.user.is_staff %}
+            <p><a href="{% url 'pages:update' page.id %}">Editar</a></p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

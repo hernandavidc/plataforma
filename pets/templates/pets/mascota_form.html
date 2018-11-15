@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Añadir mascota{% endblock %}
+{% block content %}
+<div class="col-md-10 col-md-offset-1">
+<form action="" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="col-md-6">
+            <label class="mylabel">{{ field.label }}</label>
+            {{ field }}
+        </div>
+    {% endfor %}
+    <div class="col-md-4"><label class="mylabel">Fecha de nacimiento:</label></div>
+    <div class="col-md-6">
+        <input type="date" name="fechaDeNacimiento" class="form-control" value="">
+    </div>
+    <div class="text-center">
+        <input class="btn btn-primary btn-block" type="submit" value="Agregar mascota" />
+    </div>
+</form>
+</div>
+{% endblock %}

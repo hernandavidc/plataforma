@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+    {% if rol == 'c' %}
+        {% include  'pets/list_pet_cliente.html' %}
+    {% elif rol == 'v' %}
+        {% include  'pets/list_pet_vet.html' %}
+    {% endif %}
+{% endblock %}
+
+{% block Js %}
+<script>
+$(function() {
+    $('#myModal').modal('toggle')
+});
+</script>
+{% endblock %}
+

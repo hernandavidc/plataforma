@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{servicios.mascota.nombre}}{% endblock %}
+{% block content %}
+<iframe width="80%" height="300px" style="margin: 0 10%;" src="{{servicios.camara.ip}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div></div></div></div>
+<div class="panel panel-headline col-sm-6">
+    <div class="panel-heading">
+      <div class="panel-body">
+          <div class="row">
+             <p><b>Id: </b>{{servicios.mascota.id}}</p>
+             <p><b>Dueño: </b>{{servicios.mascota.dueno.username}}</p>
+             <p><b>Raza: </b>{{servicios.mascota.dueno.raza}}</p>
+             <p><b>Fecha de nacimiento: </b>{{servicios.mascota.dueno.fechaDeNacimiento}}</p>
+             <p><b>Observaciones: </b>{{servicios.mascota.dueno.observaciones}}</p>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="panel panel-headline col-sm-5 col-sm-offset-1">
+      <div class="panel-heading">
+        <div class="panel-body">
+            <div class="row">
+               <p><b>#</b>{{servicios.id}}</p>
+               <p><b>Veterinaria: </b>{{servicios.veterinaria.user.username}}</p>
+               <p><b>Fecha de inicio: </b>{{servicios.fechaInicio}}</p>
+               <p><b>Fecha de fin: </b>{{servicios.fechaFin}}</p>
+               <p><b>Tipo: </b>{{servicios.tipo.nombre}}</p>
+               <p><b>Camara: </b>{{servicios.camara.nombre}}</p>
+            </div>
+          </div>
+      </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'registration/base_registration.html' %}
+{% load static %}
+{% block title %}Registro{% endblock %}
+{% block titleContent %}Iniciar sesión{% endblock %}
+{% block content %}
+<style>.errorlist{color:red;} label{display: none;}</style>
+<main role="main">
+    <div class="row mt-3">
+      <div class="col-md-10 col-md-offset-1">
+        <form action="" method="post">{% csrf_token %}
+            {{form.as_p}}
+          <p><input type="submit" class="btn-regis" value="Aceptar"></p>
+          <p>
+            ¿Ya tienes cuenta? <a href="{% url 'login' %}">inicia sesión</a>.
+          </p>
+        </form>
+      </div>
+    </div>
+</main>
+{% endblock %}
