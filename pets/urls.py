@@ -11,5 +11,4 @@ urlpatterns = [
     path('servicios/<int:pk>/', serviceDetail.as_view(), name='service_detail'),
     path('camaras/', listCamara.as_view(), name='camara_list'),
     path('camaras/add/', CamaraCreate.as_view(), name='camara_add'),
-    
 ]

@@ -15,6 +15,11 @@ class UserCreationFormWithEmail(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("El email ya está registrado, prueba con otro.")
         return email
+    def save(self):
+        user = super(UserCreationFormWithEmail, self).save()
+        perfil = Cliente(user=user)
+        perfil.save()
+        return user
 
 class ClienteForm(forms.ModelForm):
     class Meta:

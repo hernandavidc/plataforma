@@ -21,3 +21,5 @@ $RECYCLE.BIN/
 # =========================
 # Operating System Files
 # =========================
+__pycache__/
+db.sqlite3
