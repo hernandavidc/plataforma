@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django import forms
 
-from .forms import UserCreationFormWithEmail, ClienteForm, EmailForm, VeterinariaForm
+from .forms import UserCreationFormWithEmail, UserCreationFormWithEmailVete, ClienteForm, EmailForm, VeterinariaForm
 from .models import Cliente, Veterinaria 
 from plataforma.utils import get_rol
 
@@ -20,6 +20,22 @@ class SignupView(CreateView):
 
     def get_form(self, form_class=None):
         form = super(SignupView, self).get_form()
+        #Modificar campos en "tiempo rela" del formulario signup para no perder validaciones
+        form.fields['username'].widget = forms.TextInput(attrs={'class':'form-control mb-2', 'placeholder':'Nombre de usuario'})
+        form.fields['email'].widget = forms.EmailInput(attrs={'class':'form-control mb-2', 'placeholder':'Dirección email'})
+        form.fields['password1'].widget = forms.PasswordInput(attrs={'class':'form-control mb-2', 'placeholder':'Contraseña'})
+        form.fields['password2'].widget = forms.PasswordInput(attrs={'class':'form-control mb-2', 'placeholder':'Repite la Contraseña'})
+        return form
+
+class SignupVeteView(CreateView):
+    form_class = UserCreationFormWithEmailVete
+    template_name = 'registration/signup.html'
+
+    def get_success_url(self):
+        return reverse_lazy('login') + '?ok'
+
+    def get_form(self, form_class=None):
+        form = super(SignupVeteView, self).get_form()
         #Modificar campos en "tiempo rela" del formulario signup para no perder validaciones
         form.fields['username'].widget = forms.TextInput(attrs={'class':'form-control mb-2', 'placeholder':'Nombre de usuario'})
         form.fields['email'].widget = forms.EmailInput(attrs={'class':'form-control mb-2', 'placeholder':'Dirección email'})
