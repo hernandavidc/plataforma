@@ -88,7 +88,7 @@
             <li><a href="{% url 'servicios_list' %}" class="{% if 'servicios' in request.path %}active{% endif %}"><i class="fa fa-folder-open"></i> <span>Servicios</span></a></li>
             {% endif %}
 						<li>
-							<a href="#subPages" data-toggle="collapse" class="{% if 'cuenta' in request.path %}active{% endif %} collapsed"><i class="fa fa-user-o"></i> <span>Perfil</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages" data-toggle="collapse" class="{% if 'cuenta' in request.path %}active{% endif %} collapsed"><i class="fa fa-user"></i> <span>Perfil</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages" class="collapse ">
 								<ul class="nav">
                     <li><a href="{% url 'profile' %}">Editar</a></li>
