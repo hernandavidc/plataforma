@@ -62,7 +62,7 @@ footer p {
 	padding: 0 45px;
 }
 .bg-info{padding: 15px;}
-#wrapper input {margin-bottom: 20px;}
+#wrapper input, #wrapper textarea {margin-bottom: 20px;}
 .plus-a{position: relative;bottom: 0%;left: 95%;font-size: 35px;}
 
 

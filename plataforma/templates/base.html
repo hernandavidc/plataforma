@@ -53,8 +53,10 @@
                 </li>-->
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    {% if request.user.perfil.avatar %}
-                      <img src="{{request.user.perfil.avatar.url}}" class="img-fluid profile-avatar img-circle">
+                    {% if  rol == 'c' and request.user.perfil_c.avatar %}
+                      <img src="{{request.user.perfil_c.avatar.url}}" class="img-fluid profile-avatar img-circle">
+                    {% elif rol == 'v' and request.user.perfil_v.avatar %}
+                      <img src="{{request.user.perfil_v.avatar.url}}" class="img-fluid profile-avatar img-circle">
                     {% else %}
                       <img src="{% static 'registration/img/no-avatar.jpg' %}" class="img-fluid profile-avatar img-circle">
                     {% endif %}
@@ -77,10 +79,10 @@
 				<nav>
 					<ul class="nav">
             <li><a href="{% url 'profiles:inicio' %}" class="{% if 'inicio' in request.path %}active{% endif %}"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
-            {% if rol == c or rol == 'c' %}
+            {% if rol == 'c' %}
 						<li><a href="{% url 'pet_list' %}" class="{% if 'mascotas' in request.path %}active{% endif %}"><i class="fa fa-paw"></i> <span>Mis mascotas</span></a></li>
             <li><a href="{% url 'servicios_list' %}" class="{% if 'servicios' in request.path %}active{% endif %}"><i class="fa fa-folder-open"></i> <span>Servicios</span></a></li>
-            {% elif rol == v or rol == 'v' %}
+            {% elif rol == 'v' %}
 						<li><a href="{% url 'pet_list' %}" class="{% if 'mascotas' in request.path %}active{% endif %}"><i class="fa fa-paw"></i> <span>Mascotas</span></a></li>
             <li><a href="{% url 'camara_list' %}" class="{% if 'camaras' in request.path %}active{% endif %}"><i class="fa fa-camera"></i> <span>Camaras</span></a></li>
             <li><a href="{% url 'servicios_list' %}" class="{% if 'servicios' in request.path %}active{% endif %}"><i class="fa fa-folder-open"></i> <span>Servicios</span></a></li>

@@ -61,7 +61,7 @@ class ClienteForm(forms.ModelForm):
 class VeterinariaForm(forms.ModelForm):
     class Meta:
         model = Veterinaria
-        fields = ['avatar', 'address', 'tel', 'rut', 'latitud','longitud']
+        fields = ['avatar', 'address', 'tel', 'rut', 'latitud','longitud', 'nombre_representante', 'tel_representante']
         widgets = {
             'avatar': forms.ClearableFileInput(attrs={'class':'form-control-file mt-3'}),
             'rut': forms.TextInput(attrs={'class':'form-control mt-3', 'placeholder':'RUT'}),
@@ -69,6 +69,8 @@ class VeterinariaForm(forms.ModelForm):
             'latitud': forms.NumberInput(attrs={'class':'form-control mt-3', 'placeholder':'Latitud'}),
             'longitud': forms.NumberInput(attrs={'class':'form-control mt-3', 'placeholder':'Longitud'}),
             'tel': forms.TextInput(attrs={'class':'form-control mt-3', 'placeholder':'Número de contacto'}),
+            'nombre_representante': forms.TextInput(attrs={'class':'form-control mt-3', 'placeholder':'Nombre del representante'}),
+            'tel_representante': forms.TextInput(attrs={'class':'form-control mt-3', 'placeholder':'Telefono del representante'}),
         }
         labels = {
             'avatar': '',

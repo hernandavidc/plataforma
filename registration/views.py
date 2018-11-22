@@ -48,13 +48,14 @@ class SignupVeteView(CreateView):
 class ProfileUpdate(UpdateView):
 
     form_class = ClienteForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('profile')
     template_name = 'registration/profile_form.html'
 
     def get_object(self):
         #recuperamos el objeto que se va editar
         user_rol = get_rol(self.request)
         if user_rol == 'c':
+            self.form_class = ClienteForm
             cliente = Cliente.objects.get(user=self.request.user)
             return cliente
         elif user_rol == 'v':
