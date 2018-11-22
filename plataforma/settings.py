@@ -29,7 +29,6 @@ DEBUG = True
 
 if DEBUG:
     ALLOWED_HOSTS = ["localhost", "127.0.0.1", "*"]
-    STATICFILES_DIRS = (normpath(join(BASE_DIR, 'static')),)
 else:
     ALLOWED_HOSTS = []
 
@@ -138,6 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (normpath(join(BASE_DIR, 'static')),)
 
 #auth redirect
 LOGIN_REDIRECT_URL = 'profiles:inicio'
