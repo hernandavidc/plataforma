@@ -65,4 +65,17 @@ footer p {
 #wrapper input, #wrapper textarea {margin-bottom: 20px;}
 .plus-a{position: relative;bottom: 0%;left: 95%;font-size: 35px;}
 
+.container-vete{text-align: center;
+    border: 2px solid #b9d0ec;
+    padding: 18px;
+    margin: 40px 0;}
+.container-vete p{border-bottom: 1.5px solid #e6e6e6;}
+.container-vete img{width: 50%;
+    display: inline-block;
+    border-radius: 999px;
+    border: 2px solid #6187b6;
+    margin-top: -70px;
+    background: white;
+    margin-bottom: 10px;}
+
 

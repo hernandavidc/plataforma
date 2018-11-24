@@ -99,6 +99,30 @@ class ServicioCreate(CreateView):
         return render(request, self.template_name, {'form': form})
 
 @method_decorator(login_required, name="dispatch")
+class listVeterinarias(ListView):
+    model = Veterinaria
+    template_name = "pets/list_veterinarias.html"
+
+    def get(self, request, *args, **kwargs):
+        r = get_rol(self.request)
+        if r == 'n':
+            return HttpResponseRedirect('/')
+        elif r == 'v':
+            return HttpResponseRedirect('/')
+        return super(listVeterinarias, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        r = get_rol(self.request)
+        if r == 'v':
+            context['title'] = 'Veterinarias'
+        elif r == 'c':
+            context['title'] = 'Veterinarias'
+        else:
+            context['title'] = 'Error: no perfil, pongase en contacto con el servicio al cliente'
+        return context
+
+@method_decorator(login_required, name="dispatch")
 class listServices(ListView):
     template_name = "pets/list_services.html"
     paginate_by = 8
@@ -135,6 +159,10 @@ class listServices(ListView):
 @method_decorator(login_required, name="dispatch")
 class serviceDetail(DetailView):
     model = Servicios
+
+@method_decorator(login_required, name="dispatch")
+class detailVeterinarias(DetailView):
+    model = Veterinaria
 
 @method_decorator(login_required, name="dispatch")
 class CamaraCreate(CreateView):

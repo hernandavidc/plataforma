@@ -82,6 +82,7 @@
             {% if rol == 'c' %}
 						<li><a href="{% url 'pet_list' %}" class="{% if 'mascotas' in request.path %}active{% endif %}"><i class="fa fa-paw"></i> <span>Mis mascotas</span></a></li>
             <li><a href="{% url 'servicios_list' %}" class="{% if 'servicios' in request.path %}active{% endif %}"><i class="fa fa-folder-open"></i> <span>Servicios</span></a></li>
+            <li><a href="{% url 'veterinarias_list' %}" class="{% if 'veterinarias' in request.path %}active{% endif %}"><i class="fa fa-book"></i> <span>Veterinarias</span></a></li>
             {% elif rol == 'v' %}
 						<li><a href="{% url 'pet_list' %}" class="{% if 'mascotas' in request.path %}active{% endif %}"><i class="fa fa-paw"></i> <span>Mascotas</span></a></li>
             <li><a href="{% url 'camara_list' %}" class="{% if 'camaras' in request.path %}active{% endif %}"><i class="fa fa-camera"></i> <span>Camaras</span></a></li>

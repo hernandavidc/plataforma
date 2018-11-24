@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+    {% if rol == 'v' %}
+        Error
+    {% elif rol == 'c' %}
+        {% for veterinaria in veterinaria_list %}
+            <div class="offset-md-1 col-md-3 col-sm-6">
+                <div class="container-vete">
+                    {% if veterinaria.avatar %}
+                        <img src="{{veterinaria.avatar.url}}" class="img-responsive img-fluid img-rounded imagen">
+                    {% else %}
+                        <img src="{% static 'registration/img/no-avatar-veterinaria.png' %}" class="img-responsive img-fluid img-rounded imagen">
+                    {% endif %}
+                        <p>{{ veterinaria.user.username }}</p>
+                    {% if veterinaria.tel %}
+                        <p>{{ veterinaria.tel }}</p>
+                    {% endif %}
+                    {% if veterinaria.address %}
+                        <p>{{ veterinaria.address }}</p>
+                    {% endif %}
+                    {% if veterinaria.latitud and veterinaria.longitud %}
+                        <a href="{% url 'veterinaria_detail' veterinaria.id %}">Como llegar <i class="fa fa-map-signs" aria-hidden="true"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block Js %}
+<script>
+    $(function() {
+        $('#myModal').modal('toggle')
+    });
+</script>
+{% endblock %}
