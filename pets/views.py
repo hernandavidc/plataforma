@@ -151,8 +151,7 @@ class listServices(ListView):
             vet = Veterinaria.objects.get(user=self.request.user)
             return Servicios.objects.filter(veterinaria=vet)
         elif r == 'c':
-            client = Cliente.objects.get(user=self.request.user)
-            return Servicios.objects.filter(cliente=client.cc)
+            return Servicios.objects.filter(cliente=self.request.user.perfil_c.cc)
         else:
             return Servicios.objects.filter(veterinaria=0)
 

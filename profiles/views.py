@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from registration.models import Cliente, Veterinaria
+from pets.models import Servicios
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
@@ -17,17 +18,12 @@ class homeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['entradas'] = Page.objects.all()[:3]
-        """ if Cliente.objects.filter(user=self.request.user).first():
-            self.request.rol = 'c'
+        if get_rol(self.request) == 'c':
+            context['cant_vete'] = Veterinaria.objects.all().count()
+            context['cant_servi'] = Servicios.objects.filter(cliente=self.request.user.perfil_c.cc).count()
+            context['entradas'] = Page.objects.all()[:3]
             context['rol'] = 'c'
-            context['title'] = 'Mis mascotas'
-        elif Veterinaria.objects.filter(user=self.request.user).first():
-            self.request.rol = 'v'
-            context['rol'] = 'v'
-            context['title'] = 'Mascotas'
-        else:
-            context['rol'] = 'n' """
+        
         return context
 
 @method_decorator(login_required, name="dispatch")   

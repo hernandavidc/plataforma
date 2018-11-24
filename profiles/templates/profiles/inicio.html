@@ -1,43 +1,43 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}¡Bienvenido!{% endblock %}
+{% block content %}
 {% if rol == 'c' %}
-    {% block content %}
-        {% include  'profiles/inicio_cliente.html' %}
-    {% endblock %}
-    {% block contentNext %}
-    <div class="wor">
-        <div class="panel panel-scrolling">
-            <div class="panel-heading">
-                <h3 class="panel-title">Entradas recientes</h3>
-                <div class="right">
-                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-                    <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-                </div>
-            </div>
-            <div class="slimScrollDiv" style="overflow-y: scroll;position: relative; width: auto; height: 230px;">
-                <div class="panel-body" style="overflow-y: scroll;overflow: hidden; width: auto; height: auto;">
-                <ul class="list-unstyled activity-list">
-					{% for entrada in entradas %}
-                    <li>
-						{% if entrada.image %}
-                        <img src="{{entrada.image.url}}" alt="Avatar" class="img-circle pull-left avatar">
-                        {% endif %}
-                        <p><a href="{% url 'pages:page' entrada.id entrada.title|slugify %}">{{ entrada.title }}</a></p>
-                        <p>
-                            {{entrada.content|striptags|safe|truncatechars:"300"}}
-                        </p>
-                        {% for categoria in entrada.categories.all %}
-							<a href="{% url 'pages:category' categoria.id %}" class="link">{{categoria.name}}</a>{% if not forloop.last %},{% endif %}
-						{% endfor %}
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 292.563px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
-        </div>
-    </div>
-    {% endblock %}
+    {% include  'profiles/inicio_cliente.html' %}
 {% endif %}
+{% endblock %}
+{% block contentNext %}
+<div class="wor">
+    <div class="panel panel-scrolling">
+        <div class="panel-heading">
+            <h3 class="panel-title">Entradas recientes</h3>
+            <div class="right">
+                <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+            </div>
+        </div>
+        <div class="slimScrollDiv" style="overflow-y: scroll;position: relative; width: auto; height: 230px;">
+            <div class="panel-body" style="overflow-y: scroll;overflow: hidden; width: auto; height: auto;">
+            <ul class="list-unstyled activity-list">
+                {% for entrada in entradas %}
+                <li>
+                    {% if entrada.image %}
+                    <img src="{{entrada.image.url}}" alt="Avatar" class="img-circle pull-left avatar">
+                    {% endif %}
+                    <p><a href="{% url 'pages:page' entrada.id entrada.title|slugify %}">{{ entrada.title }}</a></p>
+                    <p>
+                        {{entrada.content|striptags|safe|truncatechars:"300"}}
+                    </p>
+                    {% for categoria in entrada.categories.all %}
+                        <a href="{% url 'pages:category' categoria.id %}" class="link">{{categoria.name}}</a>{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 292.563px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+    </div>
+</div>
+{% endblock %}
 {% block Js %}
 
 <script src="{% static '/profiles/js/fuct-js.js' %}"></script>

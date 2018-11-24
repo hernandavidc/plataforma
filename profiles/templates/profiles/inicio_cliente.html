@@ -15,7 +15,7 @@
                 <a href="{% url 'servicios_list' %}">
                     <span class="icon"><i class="fa fa-medkit"></i></span>
                     <p>
-                        <span class="number">10</span>
+                        <span class="number">{{cant_servi}}</span>
                         <span class="title">Servicios</span>
                     </p>
                 </a>
@@ -23,11 +23,13 @@
         </div>
         <div class="col-md-3">
             <div class="metric">
+                <a href="{% url 'veterinarias_list' %}">
                 <span class="icon"><i class="fa fa-eye"></i></span>
                 <p>
-                    <span class="number">2</span>
+                    <span class="number">{{cant_vete}}</span>
                     <span class="title">Veterinarias</span>
                 </p>
+                </a>
             </div>
         </div>
     </div>
