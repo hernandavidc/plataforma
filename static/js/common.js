@@ -13,7 +13,7 @@ $(document).ready(function() {
 			$('body').removeClass('layout-default'); // also remove default behaviour if set
 		}
 
-		$(this).find('.fa').toggleClass('fa-arrow-circle-o-left fa-arrow-circle-o-right');
+		$(this).find('.fa').toggleClass('fa-arrow-circle-o-right');
 
 		if($(window).innerWidth() < 1025) {
 			if(!$('body').hasClass('offcanvas-active')) {

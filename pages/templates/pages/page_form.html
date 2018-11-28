@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}Crear página{% endblock %}
 {% block content %}
+<hr style="margin-top:60px;">
 {% include 'pages/includes/pages_menu.html'%}
 <main role="main">
   <div class="container">
@@ -12,7 +13,7 @@
                     {{ form.as_p }}
                 </table>
                 <div class="text-center">
-                  <input class="btn btn-primary btn-block" type="submit" value="Crear página" />
+                  <input class="btn btn-primary btn-block" type="submit" value="Crear post" />
                 </div>
             </form>
         </div>

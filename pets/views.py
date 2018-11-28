@@ -76,24 +76,35 @@ class ServicioCreate(CreateView):
         form = self.form_class(request.POST)
         if form.is_valid():
             servicio = form.save(commit=False)
-            m = Mascota.objects.get(id=request.POST['mascota'])
-            c = Cliente.objects.get(cc=request.POST['cliente'])
-            lastSer = Servicios.objects.filter(mascota=m).first()
-            print(request.POST['fechaInicio'])
-            if m in c.user.get_pets.all():
-                if (datetime.date(datetime.strptime(request.POST['fechaInicio'], '%Y-%m-%d')) > lastSer.fechaFin):
-                    servicio.fechaInicio = request.POST['fechaInicio']
-                    servicio.fechaFin = request.POST['fechaFin']
-                    servicio.veterinaria = request.user.perfil_v
-                    servicio.tipo = TiposServicios.objects.get(id=request.POST['tipo'])
-                    servicio.camara = Camara.objects.get(id=request.POST['camara'])
-                    print(request.user.id)
-                    servicio.save()
-                    return HttpResponseRedirect('/servicios/?ok')
+            if Cliente.objects.filter(cc=request.POST['cliente']).exists(): #Si existe el cliente con esa CC
+                m = Mascota.objects.get(id=request.POST['mascota']) #la mascota
+                c = Cliente.objects.get(cc=request.POST['cliente']) #el cliente
+                print(request.POST['fechaInicio'])
+                if m in c.user.get_pets.all(): #Si la mascota pertenece a las mascotas del cliente
+                    servicio.mascota = m
+                    if Servicios.objects.filter(mascota=m).exists():
+                        lastSer = Servicios.objects.filter(mascota=m).first()   #el ultimo servicio de la mascota
+                        if (datetime.date(datetime.strptime(request.POST['fechaInicio'], '%Y-%m-%d')) > lastSer.fechaFin):
+                            #La fecha de inicio pedida es mayor a la de fin del ultimo servicio
+                            servicio.fechaInicio = request.POST['fechaInicio']
+                            servicio.fechaFin = request.POST['fechaFin']
+                        else:
+                            return HttpResponseRedirect('/servicios/?noF')
+                    else:
+                        servicio.fechaInicio = request.POST['fechaInicio']
+                        servicio.fechaFin = request.POST['fechaFin']
                 else:
-                    return HttpResponseRedirect('/servicios/?noF')
-            else:
-                return HttpResponseRedirect('/servicios/?noM')
+                    return HttpResponseRedirect('/servicios/?noM')
+            else: 
+                servicio.fechaInicio = request.POST['fechaInicio']
+                servicio.fechaFin = request.POST['fechaFin']
+            servicio.cc = request.POST['cliente']
+            servicio.veterinaria = request.user.perfil_v
+            servicio.tipo = TiposServicios.objects.get(id=request.POST['tipo'])
+            servicio.camara = Camara.objects.get(id=request.POST['camara'])
+            print(request.user.id)
+            servicio.save()
+            return HttpResponseRedirect('/servicios/?ok')
         else:
             return HttpResponseRedirect('/servicios/?error')
         return render(request, self.template_name, {'form': form})

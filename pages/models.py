@@ -31,7 +31,7 @@ class Page(models.Model):
     class Meta:
         verbose_name = "entrada"
         verbose_name_plural = "entradas"
-        ordering = ['order', 'title']
+        ordering = ['-order', '-id', 'title']
 
     def __str__(self):
         return self.title

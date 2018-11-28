@@ -1,0 +1,24 @@
+<div class="row">
+        <div class="col-md-3">
+            <div class="metric">
+                <a href="{% url 'servicios_list' %}">
+                    <span class="icon"><i class="fa fa-medkit"></i></span>
+                    <p>
+                        <span class="number">{{cant_servi}}</span>
+                        <span class="title">Servicios</span>
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric">
+                <a href="{% url 'camara_list' %}">
+                    <span class="icon"><i class="fa fa-camera"></i></span>
+                    <p>
+                        <span class="number">{{cant_cam}}</span>
+                        <span class="title">Camaras</span>
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>

@@ -73,5 +73,9 @@ body {
 }
 
 #wrapper p, #wrapper li{font-size: 12px;text-align: center;}
-
 #wrapper span.top{margin-bottom: 15px;display: block;font-size: 14px;}
+
+@media only screen and (max-width: 600px) {
+    #wrapper{width: 90%;}
+    #wrapper main{padding: 15px;}
+}

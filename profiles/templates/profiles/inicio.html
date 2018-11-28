@@ -4,6 +4,8 @@
 {% block content %}
 {% if rol == 'c' %}
     {% include  'profiles/inicio_cliente.html' %}
+{% elif rol == 'v' %}
+    {% include  'profiles/inicio_vete.html' %}
 {% endif %}
 {% endblock %}
 {% block contentNext %}

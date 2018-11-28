@@ -5,12 +5,16 @@
 <div class="col-md-10 col-md-offset-1">
 <form action="" method="post">
     {% csrf_token %}
-    {% for field in form %}
-        <div class="col-md-6">
-            <label class="mylabel">{{ field.label }}</label>
-            {{ field }}
-        </div>
-    {% endfor %}
+    <div class="col-md-6">
+        <label class="mylabel" id="dueño_label">Cc dueño </label>
+        <input id="cc" type="number" name="cliente" class="form-control mt-3" value="" placeholder="Cc cliente" required>
+    </div>
+     <div class="col-md-6">
+        <label class="mylabel" id="mascota_label">Mascota </label>
+        <select id="mascota" name="mascota" class="form-control mt-3" style="margin-bottom: 20px;">
+            <option value="0"></option>
+        </select>
+    </div>
     <div class="col-md-6">
         <label class="mylabel">Tipo</label>
         <select name="tipo" class="form-control mt-3" style="margin-bottom: 20px;">
@@ -40,4 +44,32 @@
     </div>
 </form>
 </div>
+{% endblock %}
+{% block Js %}
+<script>
+    $( "#cc" ).keyup(function() {
+        var origin   = window.location.origin;
+        var cc = $(this).val();
+        var url = origin + '/checkclient/' + cc
+        fetch(url).then(response => response.json())
+        .then(function(json) {
+            $("#dueño_label #dueño_nombre").remove();
+            $("#dueño_label").append("<small id='dueño_nombre' style='color:#5b9fd5;'>"+json['nombre']+"</small>")
+            if(json['e']){
+                $("#mascota option").remove();
+                $("#no_mascota").remove();
+            }
+            else{
+                if(json['mascotas'].length > 0){
+                    json['mascotas'].forEach(function(element) {
+                        var s = "<option value="+element[0].toString()+">"+element[1]+"</option>";
+                        $("#mascota").append(s);
+                    });
+                    $("#no_mascota").remove();                    
+                }
+                else{$("#mascota_label").append("<small id='no_mascota' style='color:#5b9fd5;'> No tiene mascotas registradas</small>");}
+            }
+        });
+    });
+</script>
 {% endblock %}

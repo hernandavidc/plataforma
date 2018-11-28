@@ -84,7 +84,7 @@ class Servicios(models.Model):
     tipo = models.ForeignKey(TiposServicios, on_delete=models.PROTECT)
     camara = models.ForeignKey(Camara, on_delete=models.PROTECT, related_name='get_servicios')
     cliente = models.PositiveIntegerField(verbose_name="Cc dueño")
-    mascota = models.ForeignKey(Mascota, verbose_name="Mascota", on_delete=models.PROTECT)
+    mascota = models.ForeignKey(Mascota, verbose_name="Mascota", on_delete=models.PROTECT, blank=True, null=True)
     veterinaria = models.ForeignKey(Veterinaria, verbose_name="Veterinaria", on_delete=models.PROTECT)
     estado = models.BooleanField(default="True")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")

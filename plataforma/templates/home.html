@@ -24,8 +24,12 @@
 				</nav>
 				<a href="{% url 'home' %}" class="logo">Libolive</a>
 				<nav class="right">
+				{% if request.user.is_anonymous %}
 					<a class="button alt" href="{% url 'signup' %}">Registro</a>
 					<a class="button" href="{% url 'login' %}">Acceder</a>
+				{% else %}
+					<a class="button" href="{% url 'profiles:inicio' %}">Plataforma</a>
+				{% endif %}
 				</nav>
 			</header>
 

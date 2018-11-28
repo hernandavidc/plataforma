@@ -24,6 +24,14 @@ class PageCreate(CreateView):
     model = Page
     form_class = PageForm
     success_url = reverse_lazy('pages:pages')
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return HttpResponseRedirect('/blog/')
+        return render(request, self.template_name, {'form': form})
 
 class PageUpdate(UpdateView):
     model = Page

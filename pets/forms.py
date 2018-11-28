@@ -34,11 +34,9 @@ class ServicioAdd(forms.ModelForm):
 
     class Meta:
         model = Servicios
-        fields = ['cliente', 'mascota']
+        fields = ['cliente']
         widgets = {
-            'cliente': forms.NumberInput(attrs={'class':'form-control mt-3', 'placeholder':'Cc cliente'}),
-            'mascota': forms.NumberInput(attrs={'class':'form-control mt-3', 'placeholder':'Id mascota'}),
-            
+            'cliente': forms.NumberInput(attrs={'id':'cc','class':'form-control mt-3', 'placeholder':'Cc cliente'}),            
         }
         labels = {
 
