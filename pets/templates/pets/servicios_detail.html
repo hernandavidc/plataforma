@@ -2,8 +2,10 @@
 {% load static %}
 {% block title %}{{servicios.mascota.nombre}}{% endblock %}
 {% block content %}
+<img src="{{servicios.camara.ip}}" class="img-fluid" alt="">
 <iframe width="80%" height="300px" style="margin: 0 10%;" src="{{servicios.camara.ip}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div></div></div></div>
+{% endblock %}
+{% block contentNext %}
 <div class="panel panel-headline col-sm-6">
     <div class="panel-heading">
       <div class="panel-body">

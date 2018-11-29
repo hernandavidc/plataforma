@@ -69,7 +69,7 @@ class Camara(models.Model):
     nombre = models.CharField(verbose_name="Nombre", max_length=100)
     descripcion = models.TextField(null=True, blank=True)
     estado = models.BooleanField(default=True)
-    ip = models.CharField(verbose_name="Camara", max_length=20)
+    ip = models.CharField(verbose_name="Camara", max_length=150)
     veterinaria = models.ForeignKey(Veterinaria, related_name="get_camaras", on_delete=models.PROTECT)
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
