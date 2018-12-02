@@ -8,8 +8,11 @@ class UserCreationFormWithEmail(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
-
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class':'form-control mb-2', 'placeholder':'Nombre(s)'}),
+            'last_name': forms.TextInput(attrs={'class':'form-control mb-2', 'placeholder':'Apellidos'}),
+        }
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
