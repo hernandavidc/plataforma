@@ -182,7 +182,6 @@ class CamaraCreate(CreateView):
     success_url = reverse_lazy('camara_list')
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
         form = self.form_class(request.POST)
         if form.is_valid():
             camara = form.save(commit=False)
