@@ -2,8 +2,9 @@
 {% load static %}
 {% block title %}{{servicios.mascota.nombre}}{% endblock %}
 {% block content %}
-<img src="{{servicios.camara.ip}}" class="img-fluid" alt="">
-<iframe width="80%" height="300px" style="margin: 0 10%;" src="{{servicios.camara.ip}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="text-center">
+    <img id="dynamicImage" src="{{servicios.camara.ip}}" class="img-fluid" alt="">
+</div>
 {% endblock %}
 {% block contentNext %}
 <div class="panel panel-headline col-sm-6">
@@ -34,4 +35,14 @@
           </div>
       </div>
     </div>
+{% endblock %}
+{% block Js %}
+<script>
+$(function() {
+	   var intervalMS = 2000;
+	   setInterval(function() {
+	      $("#dynamicImage").prop("src", "{{servicios.camara.ip}}?" + +new Date());
+	   }, intervalMS);
+	});
+</script>
 {% endblock %}

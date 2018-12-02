@@ -17,9 +17,8 @@ a {
     color: #3b98c8;
     text-decoration: none; }
 
-th {
-  font-weight: 600; }
-
+th {font-weight: 600; }
+#dynamicImage{display: inline-block;width: 70%; height: 70%;}
 .page-title {
   margin-top: 0;
   margin-bottom: 30px;
