@@ -55,7 +55,6 @@ class MascotaCreate(CreateView):
         if form.is_valid():
             mascota = form.save(commit=False)
             mascota.dueno = request.user
-            print(request)
             mascota.fechaDeNacimiento = request.POST['fechaDeNacimiento']
             mascota.save()
             return HttpResponseRedirect('/mascotas/?ok')
