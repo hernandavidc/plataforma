@@ -20,6 +20,7 @@ class MascotaUpdate(UpdateView):
     model = Mascota
     fields = ['dueno', 'nombre', 'raza', 'fechaDeNacimiento', 'tipo', 'observaciones']
     template_name_suffix = '_update_form'
+    success_url = reverse_lazy('pet_list')
 
     def get_object(self):
         return get_object_or_404(Mascota, id=self.kwargs['mascotaId'])
@@ -54,6 +55,7 @@ class MascotaCreate(CreateView):
         if form.is_valid():
             mascota = form.save(commit=False)
             mascota.dueno = request.user
+            print(request)
             mascota.fechaDeNacimiento = request.POST['fechaDeNacimiento']
             mascota.save()
             return HttpResponseRedirect('/mascotas/?ok')

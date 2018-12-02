@@ -3,16 +3,16 @@
 {% block title %}Añadir mascota{% endblock %}
 {% block content %}
 <div class="col-md-10 col-md-offset-1">
-<form action="" method="post">
+<form action="" method="post" class="">
     {% csrf_token %}
     {% for field in form %}
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-12">
             <label class="mylabel">{{ field.label }}</label>
             {{ field }}
         </div>
     {% endfor %}
-    <div class="col-md-4"><label class="mylabel">Fecha de nacimiento:</label></div>
-    <div class="col-md-6">
+    <div class="col-md-6 col-sm-12 center">
+        <label class="mylabel">Fecha de nacimiento:</label>
         <input type="date" name="fechaDeNacimiento" class="form-control" value="">
     </div>
     <div class="text-center">

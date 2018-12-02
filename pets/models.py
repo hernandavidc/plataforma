@@ -2,12 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from registration.models import Cliente, Veterinaria
 
-#'1era letra del nombre en ingles','Nombre del animal en español'
+#'1era letra del nombre en español','Nombre del animal en español'
 ANIMAL_CHOICE = (
-     ('c','Gato'),
-     ('d','Perro'),
-     ('f','Pez'),
-     ('b','Ave'),
+     ('m','Mamífero'),
+     ('p','Pez'),
+     ('b','Ave'), #brid
+     ('a','Anfibios'),
      ('r','Reptil'),
      ('o','Otro'),
 )
