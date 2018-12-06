@@ -2,11 +2,20 @@
 {% load static %}
 {% block title %} Mascota {% endblock %}
 {% block content %}
+<style>#avatar-clear_id{display:inline-block;width:20px;}
+label[for=id_avatar]{width:100%;}</style>
 <div class="col-md-6 col-sm-12">
-    <form method="post">{% csrf_token %}
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        {% if mascota.avatar %}
+            <p class="text-center">
+                <img src="{{mascota.avatar.url}}" height="200" class="mx-auto d-block img-rounded imagen">
+            </p>
+        {% else %}
+            <img src="{% static 'registration/img/no-avatar.jpg' %}" class="img-responsive img-fluid img-rounded imagen">
+        {% endif %}
         {{ form }}
         <div class="text-center" style="margin-top:20px;">
-            <input class="btn btn-primary btn-block" type="submit" value="Update" />
+            <input class="btn btn-primary btn-block" type="submit" value="Actualizar" />
         </div>
     </form>
 </div>

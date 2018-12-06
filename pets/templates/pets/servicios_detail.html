@@ -19,6 +19,7 @@
              <p><b>Raza: </b>{{servicios.mascota.raza}}</p>
              <p><b>Fecha de nacimiento: </b>{{servicios.mascota.fechaDeNacimiento}}</p>
              <p><b>Observaciones: </b>{{servicios.mascota.observaciones}}</p>
+             <p><a href="{% url 'mascota_update' servicios.mascota.id %}"> Mas detalle </a></p>
           </div>
         </div>
     </div>
@@ -44,7 +45,7 @@
 $(function() {
 	   var intervalMS = 1000;
 	   setInterval(function() {
-	      $("#dynamicImage").prop("src", "{{servicios.camara.ip}}?" + +new Date());
+	      $("#dynamicImage").prop("src", "{{servicios.camara.ip}}?" + new Date());
 	   }, intervalMS);
 	});
 </script>

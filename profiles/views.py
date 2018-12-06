@@ -41,7 +41,11 @@ def checkClient(request, cc):
             for mascota in mascotas:
                 data = [mascota.id, mascota.nombre]
                 mascotasList.append(data)
-            return JsonResponse({'nombre':cliente.user.username,'mascotas':mascotasList, 'e':0})
+            if cliente.user.first_name or cliente.user.last_name:
+                nombre_completo = cliente.user.first_name + ' ' + cliente.user.last_name
+            else:
+                nombre_completo = cliente.user.username
+            return JsonResponse({'nombre':nombre_completo,'mascotas':mascotasList, 'e':0})
         except Cliente.DoesNotExist:
             return JsonResponse({'nombre':"No existe perfil", 'e':1})
     else:

@@ -18,12 +18,21 @@ from .models import Mascota,AnotacionMascota, Servicios, TiposServicios, Camara
 @method_decorator(login_required, name="dispatch")
 class MascotaUpdate(UpdateView):
     model = Mascota
-    fields = ['dueno', 'nombre', 'raza', 'fechaDeNacimiento', 'tipo', 'observaciones']
+    fields = ['nombre', 'avatar', 'raza', 'fechaDeNacimiento', 'tipo', 'observaciones']
     template_name_suffix = '_update_form'
     success_url = reverse_lazy('pet_list')
 
+    def get(self, request, *args, **kwargs):
+        mascota = get_object_or_404(Mascota, id=kwargs['mascotaId'])
+        if mascota in request.user.get_pets.all():
+            self.object = self.get_object()
+            return super(UpdateView, self).get(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect('/mascotas/')
+
     def get_object(self):
-        return get_object_or_404(Mascota, id=self.kwargs['mascotaId'])
+        mascota = get_object_or_404(Mascota, id=self.kwargs['mascotaId'])
+        return mascota
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

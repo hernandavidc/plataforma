@@ -14,7 +14,7 @@ def custom_upload_to_v(instance, filename):
     old_instance.avatar.delete()
     return 'profiles/' + filename
 
-
+#Se crean los perfiles en el formulario, funcion: def save(self):
 class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="perfil_c")
     avatar = models.ImageField(upload_to=custom_upload_to, null=True, blank=True)
