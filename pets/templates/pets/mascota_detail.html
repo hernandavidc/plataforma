@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{mascota.nombre}}
+<ul class="nav navbar-nav navbar-right">
+  <li class="nav-item">
+    <a class="nav-link active" href="{% url 'mascota_update' mascota.id %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+  </li>
+</ul>
+{% endblock %}
+{% block content %}
+{% if mascota.avatar %}
+    <p class="text-center">
+        <img src="{{mascota.avatar.url}}" height="200" class="mx-auto d-block img-rounded imagen">
+    </p>
+{% else %}
+    <p class="text-center">
+        <img src="{% static 'registration/img/no-avatar-pet.png' %}" height="150" class=" img-fluid img-rounded imagen">
+    </p>
+{% endif %}
+<div class="col-md-6 col-sm-12">
+<p  class="text-center"><b>Dueño:</b>
+{% if user.first_name or user.last_name %}
+    {{user.first_name}} {{user.last_name}}
+{% else %}
+    {{user.username}}
+{% endif %}
+</p>
+<p class="text-center"><b>Fecha de nacimiento:</b> {{mascota.fechaDeNacimiento}}</p>
+</div>
+<div class="col-md-6 col-sm-12">
+    <p class="text-center"><b>Raza: </b> {{mascota.raza}}</p>
+    <p class="text-center"><b>Tipo: </b> {{mascota.get_tipo_display}}</p>
+</div>
+<p class="text-center"><b>Observaciones: </b> {{mascota.observaciones}}</p>
+{% endblock %}
+{% block contentNext %}
+<div class="panel col-md-5 col-sm-12">
+<h4><b>Servicios:</b></h4>
+{% for servicio in mascota.get_servicios.all %}
+    <p>Fecha incio: {{servicio.fechaInicio}} - Fecha salida: {{servicio.fechaFin}}</p>
+    <p>Tipo: {{servicio.tipo.nombre}}</p>
+    <hr>
+{% endfor %}
+</div>
+<div class="panel col-md-6 col-md-offset-1 col-sm-12">
+<h4><b>Anotaciones:</b></h4>
+{% for anotacion in mascota.get_anotaciones.all %}
+    {{ anotacion.texto}}
+    <br>
+{% endfor %}
+</div>
+{% endblock %}
+{% block Js %}
+{% endblock %}

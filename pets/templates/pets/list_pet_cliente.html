@@ -17,7 +17,7 @@
         <td>{{ mascota.raza }}</td>
         <td>{{ mascota.fechaDeNacimiento }}</td>
         <td>{{ mascota.observaciones|truncatechars:"200" }}</td>
-        <td><a href="{% url 'mascota_update' mascota.id %}"><i class="fa fa-address-card" aria-hidden="true"></i></a></td>
+        <td><a href="{% url 'mascota_detail' mascota.id %}"><i class="fa fa-address-card" aria-hidden="true"></i></a></td>
     </tr>
   {% endfor %}
   </tbody>

@@ -11,7 +11,9 @@ label[for=id_avatar]{width:100%;}</style>
                 <img src="{{mascota.avatar.url}}" height="200" class="mx-auto d-block img-rounded imagen">
             </p>
         {% else %}
-            <img src="{% static 'registration/img/no-avatar.jpg' %}" class="img-responsive img-fluid img-rounded imagen">
+            <p class="text-center">
+                <img src="{% static 'registration/img/no-avatar-pet.png' %}" height="150" class=" img-fluid img-rounded imagen">
+            </p>
         {% endif %}
         {{ form }}
         <div class="text-center" style="margin-top:20px;">
