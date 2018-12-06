@@ -34,14 +34,6 @@ label[for=id_avatar]{width:100%;}</style>
         {% endfor %}
     </div>
 </div>
-<div class="col-md-6 col-sm-12">
-    <h3>Historial de servicios:</h3>
-    {% for servicio in servicios %}
-        <p>Fecha incio: {{servicio.fechaInicio}} - Fecha salida: {{servicio.fechaFin}}</p>
-        <p>Tipo: {{servicio.tipo.nombre}}</p>
-        <hr>
-    {% endfor %}
-</div>
 
 {% endblock %}
 

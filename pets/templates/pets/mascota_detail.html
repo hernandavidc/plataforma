@@ -35,7 +35,7 @@
 {% endblock %}
 {% block contentNext %}
 <div class="panel col-md-5 col-sm-12">
-<h4><b>Servicios:</b></h4>
+<h3><b>Historial de servicios:</b></h3>
 {% for servicio in mascota.get_servicios.all %}
     <p>Fecha incio: {{servicio.fechaInicio}} - Fecha salida: {{servicio.fechaFin}}</p>
     <p>Tipo: {{servicio.tipo.nombre}}</p>
@@ -43,7 +43,7 @@
 {% endfor %}
 </div>
 <div class="panel col-md-6 col-md-offset-1 col-sm-12">
-<h4><b>Anotaciones:</b></h4>
+<h3><b>Anotaciones:</b></h3>
 {% for anotacion in mascota.get_anotaciones.all %}
     {{ anotacion.texto}}
     <br>
