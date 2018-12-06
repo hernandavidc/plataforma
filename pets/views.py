@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseRedirect, JsonResponse
-from datetime import datetime
+from datetime import datetime, date
 
 from .forms import MascotaAddOwner, ServicioAdd, CamaraAdd
 
@@ -179,6 +179,15 @@ class listServices(ListView):
 @method_decorator(login_required, name="dispatch")
 class serviceDetail(DetailView):
     model = Servicios
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        #La fecha altual aun esta dentro del rango? 
+        if self.object.fechaFin >= date.today():
+            context['video'] = True
+        else:
+            context['video'] = False
+        return context
 
 @method_decorator(login_required, name="dispatch")
 class detailVeterinarias(DetailView):

@@ -3,10 +3,14 @@
 {% block title %}{{servicios.mascota.nombre}}{% endblock %}
 {% block content %}
 <div class="text-center">
+{% if video %}
     <img id="dynamicImage" src="{{servicios.camara.ip}}" class="img-fluid" alt="Video no disponile. Por favor recargar o contactar con el proveedor. *Display disponible para navegador Firefox y Safari.">
     <p><small>Livecamera para navegadores Safaria y Firefox.</small></p>
     <p><small>Si presentas algun problema prueba con recargar la pagina.</small></p>
-    
+{% else %}
+    <h3 class="text-center">Detalle del servicio</h3>
+    <small style="font-size:10px;" class="text-center">*Este servicio ya cumplio su tiempo de vídeo</small>
+{% endif %}
 </div>
 {% endblock %}
 {% block contentNext %}
