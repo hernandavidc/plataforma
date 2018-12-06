@@ -19,7 +19,7 @@ class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="perfil_c")
     avatar = models.ImageField(upload_to=custom_upload_to, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
-    cc = models.PositiveIntegerField(unique=True,verbose_name="Cédula",null=True, blank=True)
+    cc = models.PositiveIntegerField(unique=True,verbose_name="Cédula",null=True, blank=True, error_messages={'unique':"Esta cedula ya tiene vinculada una cuenta."})
     tel = models.CharField(verbose_name="Teléfono", max_length=15,null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
