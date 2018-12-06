@@ -185,6 +185,10 @@ class detailVeterinarias(DetailView):
     model = Veterinaria
 
 @method_decorator(login_required, name="dispatch")
+class mascotaDetail(DetailView):
+    model = Mascota
+
+@method_decorator(login_required, name="dispatch")
 class CamaraCreate(CreateView):
     model = Camara
     form_class = CamaraAdd
