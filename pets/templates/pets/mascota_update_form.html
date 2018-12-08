@@ -29,8 +29,11 @@ label[for=id_avatar]{width:100%;}</style>
     <button id="send" class="btn btn-primary btn-block" disabled>Enviar</button>
     <div id="anotaciones" style="margin-top:25px;">
         {% for anotacion in anotaciones %}
-            <p>{{anotacion.texto}}</p>
-            <hr>
+            <div class="cont-anotacion" id="{{anotacion.id}}">
+                <p class="text-right text-danger"><a class="text-danger del-anotacion" id="{{anotacion.id}}" href="#"><i class="fa fa-times-circle" aria-hidden="true"></i></a></p>
+                <p>{{anotacion.texto}}</p>
+                <hr>
+            </div>
         {% endfor %}
     </div>
 </div>
@@ -39,42 +42,58 @@ label[for=id_avatar]{width:100%;}</style>
 
 {% block Js %}
 <script>
+$('a.del-anotacion').click(function() {
+    var id = $(this).attr('id');
+    var pre = "{% url 'anotacion_del' 0 %}";
+    const url = pre.replace("0", id);
+    fetch(url, {'credentials':'include'}).then(response => response.json()).then((data) => {
+        if (data.delete) {
+        // Si no hay redirección eliminamos dinámicamente el mensaje
+            $("div.cont-anotacion#"+id).remove();
+        } else {
+        // err
+        console.log("Algo ha fallado y el mensaje no se ha podido eliminar.")
+        }
+    })
+});
+</script>
+<script>
     $('input').addClass("form-control");
     $('select').addClass("form-control");
     $('textarea').addClass("form-control");
 </script>
 <script>
-        var send = document.getElementById("send");
-        send.addEventListener("click", () => {
-          var content = encodeURIComponent(document.getElementById("content").value);
-          if (content.length > 0){
-            document.getElementById("content").value = '';
-            send.disabled = true;
-            const url = "{% url 'anotacion_add' mascotaId %}" + "?content=" + content;
-            fetch(url, {'credentials':'include'}).then(response => response.json()).then((data) => {
-              if (data.created) {
-                // Si no hay redirección creamos una nueva capa dinámicamente con el mensaje
-                var message = document.createElement('div');
-                message.classList.add('mine', 'mb-3');
-                message.innerHTML = '<small><i>Hace unos segundos</i></small><br>'+ decodeURIComponent(content)+"<hr><br>";
-                document.getElementById("anotaciones").insertAdjacentElement('beforebegin', message);      
-              } else {
-                // err
-                console.log("Algo ha fallado y el mensaje no se ha podido añadir.")
-              }
-            })
-          }
+    var send = document.getElementById("send");
+    send.addEventListener("click", () => {
+        var content = encodeURIComponent(document.getElementById("content").value);
+        if (content.length > 0){
+        document.getElementById("content").value = '';
+        send.disabled = true;
+        const url = "{% url 'anotacion_add' mascotaId %}" + "?content=" + content;
+        fetch(url, {'credentials':'include'}).then(response => response.json()).then((data) => {
+            if (data.created) {
+            // Si no hay redirección creamos una nueva capa dinámicamente con el mensaje
+            var message = document.createElement('div');
+            message.classList.add('mine', 'mb-3');
+            message.innerHTML = '<small><i>Hace unos segundos</i></small><br>'+ decodeURIComponent(content)+"<hr><br>";
+            document.getElementById("anotaciones").insertAdjacentElement('beforebegin', message);      
+            } else {
+            // err
+            console.log("Algo ha fallado y el mensaje no se ha podido añadir.")
+            }
         })
-      
-        //Activar o desactivar el boton si hay o no mjs
-        var content = document.getElementById("content");
-        content.addEventListener("keyup", function(){
-          if(!this.checkValidity() || !this.value){
-            send.disabled = true;
-          }
-          else{
-            send.disabled = false;
-          }
-        })
-      </script>
+        }
+    })
+
+    //Activar o desactivar el boton si hay o no mjs
+    var content = document.getElementById("content");
+    content.addEventListener("keyup", function(){
+        if(!this.checkValidity() || !this.value){
+        send.disabled = true;
+        }
+        else{
+        send.disabled = false;
+        }
+    })
+</script>
 {% endblock %}

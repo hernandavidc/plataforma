@@ -52,6 +52,19 @@ def add_anotacion(request, mascotaId):
         raise Http404("El usuario no esta autenticado")
     return JsonResponse(json_responder)
 
+def del_anotacion(request, anotacionId):
+    json_responder = {'delete':False}
+    if request.user.is_authenticated:
+        instance = AnotacionMascota.objects.get(id=anotacionId)
+        if request.user == instance.creador:
+            instance.delete()
+            json_responder['delete'] = True
+        else:
+            raise Http404("No concuerda")
+    else:
+        raise Http404("El usuario no esta autenticado")
+    return JsonResponse(json_responder)
+
 @method_decorator(login_required, name="dispatch")
 class MascotaCreate(CreateView):
     model = Mascota
@@ -153,7 +166,6 @@ class listServices(ListView):
         if r == 'n':
             return HttpResponseRedirect('/mascotas/')
         return super(listServices, self).get(request, *args, **kwargs)
-            
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
