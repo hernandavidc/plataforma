@@ -19,7 +19,7 @@
                   <td>{{ mascota.raza }}</td>
                   <td>{{ mascota.fechaDeNacimiento }}</td>
                   <td>{{ mascota.observaciones }}</td>
-                  <td><a href="{% url 'mascota_update' mascota.id %}"><i class="fa fa-folder"></i></a></td>
+                  <td><a href="{% url 'mascota_detail' mascota.id %}"><i class="fa fa-folder"></i></a></td>
               </tr>
           </tbody>
       {% endfor %}

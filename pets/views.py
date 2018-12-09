@@ -15,6 +15,30 @@ from plataforma.utils import get_rol, get_perfil
 from registration.models import Cliente, Veterinaria
 from .models import Mascota,AnotacionMascota, Servicios, TiposServicios, Camara
 
+def add_anotacion(request, mascotaId):
+    json_responder = {'created':False}
+    if request.user.is_authenticated:
+        contenido = request.GET.get('content', None)
+        if contenido:
+            anotacion = AnotacionMascota.objects.create(creador=request.user, texto=contenido, mascota=Mascota.objects.get(id=mascotaId))
+            json_responder['created'] = True
+    else:
+        raise Http404("El usuario no esta autenticado")
+    return JsonResponse(json_responder)
+
+def del_anotacion(request, anotacionId):
+    json_responder = {'delete':False}
+    if request.user.is_authenticated:
+        instance = AnotacionMascota.objects.get(id=anotacionId)
+        if request.user == instance.creador:
+            instance.delete()
+            json_responder['delete'] = True
+        else:
+            raise Http404("No concuerda")
+    else:
+        raise Http404("El usuario no esta autenticado")
+    return JsonResponse(json_responder)
+   
 @method_decorator(login_required, name="dispatch")
 class MascotaUpdate(UpdateView):
     model = Mascota
@@ -40,30 +64,6 @@ class MascotaUpdate(UpdateView):
         context['anotaciones'] = AnotacionMascota.objects.filter(mascota=self.get_object())
         context['mascotaId'] = self.kwargs['mascotaId']
         return context
-
-def add_anotacion(request, mascotaId):
-    json_responder = {'created':False}
-    if request.user.is_authenticated:
-        contenido = request.GET.get('content', None)
-        if contenido:
-            anotacion = AnotacionMascota.objects.create(creador=request.user, texto=contenido, mascota=Mascota.objects.get(id=mascotaId))
-            json_responder['created'] = True
-    else:
-        raise Http404("El usuario no esta autenticado")
-    return JsonResponse(json_responder)
-
-def del_anotacion(request, anotacionId):
-    json_responder = {'delete':False}
-    if request.user.is_authenticated:
-        instance = AnotacionMascota.objects.get(id=anotacionId)
-        if request.user == instance.creador:
-            instance.delete()
-            json_responder['delete'] = True
-        else:
-            raise Http404("No concuerda")
-    else:
-        raise Http404("El usuario no esta autenticado")
-    return JsonResponse(json_responder)
 
 @method_decorator(login_required, name="dispatch")
 class MascotaCreate(CreateView):
