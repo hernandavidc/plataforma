@@ -38,7 +38,75 @@ def del_anotacion(request, anotacionId):
     else:
         raise Http404("El usuario no esta autenticado")
     return JsonResponse(json_responder)
-   
+
+@method_decorator(login_required, name="dispatch")
+class serviceEdit(UpdateView):
+    model = Servicios
+    template_name_suffix = '_update_form'
+    fields = ['tipo', 'camara', 'cliente', 'mascota', 'fechaInicio', 'fechaFin']
+    widgets = {
+        }
+    success_url = reverse_lazy('servicios_list')
+
+    def get(self, request, *args, **kwargs):
+        servicio = get_object_or_404(Servicios, id=kwargs['pk'])
+        print(servicio)
+        print(request.user.perfil_v.get_servicios.all())
+        if servicio in request.user.perfil_v.get_servicios.all():
+            self.object = servicio
+            return super(UpdateView, self).get(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect('/servicios/')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        mascota = get_object_or_404(Mascota, id=self.get_object().id)
+        context['tipos_servicios'] = TiposServicios.objects.all()
+        context['camaras'] = Camara.objects.filter(veterinaria=self.request.user.perfil_v)
+        if mascota:
+            context['mascota'] = mascota.nombre
+        else:
+            context['mascota'] = ""
+        return context
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            servicio = form.save(commit=False)
+            if Cliente.objects.filter(cc=request.POST['cliente']).exists(): #Si existe el cliente con esa CC
+                m = Mascota.objects.get(id=request.POST['mascota']) #la mascota
+                c = Cliente.objects.get(cc=request.POST['cliente']) #el cliente
+                print(request.POST['fechaInicio'])
+                if m in c.user.get_pets.all(): #Si la mascota pertenece a las mascotas del cliente
+                    servicio.mascota = m
+                    if Servicios.objects.filter(mascota=m).exists():
+                        lastSer = Servicios.objects.filter(mascota=m).first()   #el ultimo servicio de la mascota
+                        if (datetime.date(datetime.strptime(request.POST['fechaInicio'], '%Y-%m-%d')) > lastSer.fechaFin):
+                            #La fecha de inicio pedida es mayor a la de fin del ultimo servicio
+                            servicio.fechaInicio = request.POST['fechaInicio']
+                            servicio.fechaFin = request.POST['fechaFin']
+                        else:
+                            return HttpResponseRedirect('/servicios/?noF')
+                    else:
+                        servicio.fechaInicio = request.POST['fechaInicio']
+                        servicio.fechaFin = request.POST['fechaFin']
+                else:
+                    return HttpResponseRedirect('/servicios/?noM')
+            else: 
+                servicio.fechaInicio = request.POST['fechaInicio']
+                servicio.fechaFin = request.POST['fechaFin']
+            servicio.cc = request.POST['cliente']
+            servicio.veterinaria = request.user.perfil_v
+            servicio.tipo = TiposServicios.objects.get(id=request.POST['tipo'])
+            servicio.camara = Camara.objects.get(id=request.POST['camara'])
+            print(request.user.id)
+            servicio.save()
+            return HttpResponseRedirect('/servicios/')
+        else:
+            return HttpResponseRedirect('/servicios/?error')
+        return render(request, self.template_name, {'form': form})
+
 @method_decorator(login_required, name="dispatch")
 class MascotaUpdate(UpdateView):
     model = Mascota

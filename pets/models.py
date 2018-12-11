@@ -85,7 +85,7 @@ class Servicios(models.Model):
     camara = models.ForeignKey(Camara, on_delete=models.PROTECT, related_name='get_servicios')
     cliente = models.PositiveIntegerField(verbose_name="Cc dueño")
     mascota = models.ForeignKey(Mascota, related_name='get_servicios', verbose_name="Mascota", on_delete=models.PROTECT, blank=True, null=True)
-    veterinaria = models.ForeignKey(Veterinaria, verbose_name="Veterinaria", on_delete=models.PROTECT)
+    veterinaria = models.ForeignKey(Veterinaria, related_name='get_servicios', verbose_name="Veterinaria", on_delete=models.PROTECT)
     estado = models.BooleanField(default="True")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
@@ -96,4 +96,4 @@ class Servicios(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return "Rut: " + self.veterinaria.rut + " Cc: " + str(self.cliente) + " Mascota: " + self.mascota.nombre  
+        return "Rut: " + self.veterinaria.rut + " Cc: " + str(self.cliente) 
