@@ -3,10 +3,10 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, Http404
 from datetime import datetime, date
 
 from .forms import MascotaAddOwner, ServicioAdd, CamaraAdd
@@ -38,6 +38,17 @@ def del_anotacion(request, anotacionId):
     else:
         raise Http404("El usuario no esta autenticado")
     return JsonResponse(json_responder)
+
+def ServicioDelete(request, servicioId):
+    if request.user.is_authenticated:
+        instance = Servicios.objects.get(id=servicioId)
+        if request.user.perfil_v == instance.veterinaria:
+            instance.delete()
+        else:
+            raise Http404("No concuerda")
+    else:
+        raise Http404("El usuario no esta autenticado")
+    return HttpResponseRedirect('/servicios/')
 
 @method_decorator(login_required, name="dispatch")
 class serviceEdit(UpdateView):
