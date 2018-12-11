@@ -49,12 +49,15 @@ class serviceEdit(UpdateView):
     success_url = reverse_lazy('servicios_list')
 
     def get(self, request, *args, **kwargs):
-        servicio = get_object_or_404(Servicios, id=kwargs['pk'])
-        print(servicio)
-        print(request.user.perfil_v.get_servicios.all())
-        if servicio in request.user.perfil_v.get_servicios.all():
-            self.object = servicio
-            return super(UpdateView, self).get(request, *args, **kwargs)
+        if request.user.perfil_v:
+            servicio = get_object_or_404(Servicios, id=kwargs['pk'])
+            print(servicio)
+            print(request.user.perfil_v.get_servicios.all())
+            if servicio in request.user.perfil_v.get_servicios.all():
+                self.object = servicio
+                return super(UpdateView, self).get(request, *args, **kwargs)
+            else:
+                return HttpResponseRedirect('/servicios/')
         else:
             return HttpResponseRedirect('/servicios/')
     
