@@ -62,8 +62,6 @@ class serviceEdit(UpdateView):
     def get(self, request, *args, **kwargs):
         if request.user.perfil_v:
             servicio = get_object_or_404(Servicios, id=kwargs['pk'])
-            print(servicio)
-            print(request.user.perfil_v.get_servicios.all())
             if servicio in request.user.perfil_v.get_servicios.all():
                 self.object = servicio
                 return super(UpdateView, self).get(request, *args, **kwargs)
@@ -122,6 +120,23 @@ class serviceEdit(UpdateView):
         return render(request, self.template_name, {'form': form})
 
 @method_decorator(login_required, name="dispatch")
+class MascotaCreate(CreateView):
+    model = Mascota
+    form_class = MascotaAddOwner
+    success_url = reverse_lazy('pet_list')
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            mascota = form.save(commit=False)
+            mascota.dueno = request.user
+            mascota.fechaDeNacimiento = request.POST['fechaDeNacimiento']
+            mascota.save()
+            return HttpResponseRedirect('/mascotas/?ok')
+        return render(request, self.template_name, {'form': form})
+
+@method_decorator(login_required, name="dispatch")
 class MascotaUpdate(UpdateView):
     model = Mascota
     fields = ['nombre', 'avatar', 'raza', 'fechaDeNacimiento', 'tipo', 'observaciones']
@@ -148,21 +163,8 @@ class MascotaUpdate(UpdateView):
         return context
 
 @method_decorator(login_required, name="dispatch")
-class MascotaCreate(CreateView):
+class mascotaDetail(DetailView):
     model = Mascota
-    form_class = MascotaAddOwner
-    success_url = reverse_lazy('pet_list')
-
-    def post(self, request, *args, **kwargs):
-        print(request.POST)
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            mascota = form.save(commit=False)
-            mascota.dueno = request.user
-            mascota.fechaDeNacimiento = request.POST['fechaDeNacimiento']
-            mascota.save()
-            return HttpResponseRedirect('/mascotas/?ok')
-        return render(request, self.template_name, {'form': form})
 
 @method_decorator(login_required, name="dispatch")
 class ServicioCreate(CreateView):
@@ -288,10 +290,6 @@ class detailVeterinarias(DetailView):
     model = Veterinaria
 
 @method_decorator(login_required, name="dispatch")
-class mascotaDetail(DetailView):
-    model = Mascota
-
-@method_decorator(login_required, name="dispatch")
 class CamaraCreate(CreateView):
     model = Camara
     form_class = CamaraAdd
@@ -306,6 +304,9 @@ class CamaraCreate(CreateView):
             return HttpResponseRedirect('/camaras/?ok')
         return render(request, self.template_name, {'form': form})
 
+@method_decorator(login_required, name="dispatch")
+class camaraDetail(DetailView):
+    model = Camara
 
 @method_decorator(login_required, name="dispatch")
 class listCamara(ListView):

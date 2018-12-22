@@ -7,9 +7,8 @@ from django.urls import reverse_lazy
 from django import forms
 
 from .forms import UserCreationFormWithEmail, UserCreationFormWithEmailVete, ClienteForm, EmailForm, VeterinariaForm
-from .models import Cliente, Veterinaria 
+from .models import Cliente, Veterinaria
 from plataforma.utils import get_rol
-
 
 class SignupView(CreateView):
     form_class = UserCreationFormWithEmail
@@ -43,7 +42,6 @@ class SignupVeteView(CreateView):
         form.fields['password2'].widget = forms.PasswordInput(attrs={'class':'form-control mb-2', 'placeholder':'Repite la Contraseña'})
         return form
 
-
 @method_decorator(login_required, name='dispatch')
 class ProfileUpdate(UpdateView):
 
@@ -65,7 +63,6 @@ class ProfileUpdate(UpdateView):
         else:
             return HttpResponse("No cuenta con perfil, pongase en contacto con servicio al cliente", status=404)
         
-
 @method_decorator(login_required, name='dispatch')
 class EmailUpdate(UpdateView):
     form_class = EmailForm

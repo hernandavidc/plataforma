@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Libofive</title>
+		<title>LiboLive</title>
 		{% load static %}
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,7 +22,7 @@
 				<nav class="left">
 					<a href="#menu"><span>Menu</span></a>
 				</nav>
-				<a href="{% url 'home' %}" class="logo">Libolive</a>
+				<a href="{% url 'home' %}" class="logo">LiboLive</a>
 				<nav class="right">
 				{% if request.user.is_anonymous %}
 					<a class="button alt" href="{% url 'signup' %}">Registro</a>
@@ -79,30 +79,26 @@
 			<section id="one" class="wrapper">
 				<div class="title">
 					<h2>Estamos para acercarte a tu mascota</h2>
-					<p>Conoce un poco a cerca de LiboLive</p>
+					<p style="padding:0 25px;">LiboLive llega para ofrecerte una experiencia que te permitirá seguir en contacto con tus mascotas al ser dejadas en procesos de hospitalización, baño, guardería y cualquier otro procesos que la veterinaria permita monitorear vía videostreaming.
+
+De esta manera los médicos veterinarios podrán enfocarse tranquilamente en el cuidado de tú mascota.</p>
 				</div>
 				<div class="inner flex flex-3">
 					<div class="flex-item left">
-						<div>
-							<h3>Nosotros</h3>
-							<p>te ofrecemos la solución que necesitabas para seguir en contacto con tu mascota</p>
-						</div>
 						<div>
 							<h3>Por ti </h3>
 							<p>La estabilidad  y confiabilidad de nuestro servicio permite una experiencia placentera</p>
 						</div>
 					</div>
+
 					<div class="flex-item image fit round">
-						<img src="{% static 'images/pic01.jpg' %}" alt="" />
+						<img height="200px" src="{% static 'images/pic01.jpg' %}" alt="" />
 					</div>
+
 					<div class="flex-item right">
 						<div>
 							<h3>Dónde encontrarnos</h3>
 							<p>Pregunta en tu veterinaria de confianza si cuenta con los servicios de LiboLive para acceder a nuestros beneficios</p>
-						</div>
-						<div>
-							<h3>Suscipit nibh dolore</h3>
-							<p>Pellentesque egestas sem. Suspendisse<br /> modo ullamcorper feugiat lorem.</p>
 						</div>
 					</div>
 				</div>
