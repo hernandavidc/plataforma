@@ -7,7 +7,6 @@ from django.db.models import Q
 class EmailOrUsernameModelBackend():  # requires to define two functions authenticate and get_user
     def authenticate(self, request, username=None, password=None, **kwargs):
         UserModel = User
-        print("¡¡ Propio !!")
         try:
             # below line gives query set,you can change the queryset as per your requirement
             user = UserModel.objects.filter(

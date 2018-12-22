@@ -120,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = (
     'registration.backends.EmailOrUsernameModelBackend', # our custom authentication backend
-    #'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
     )
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
