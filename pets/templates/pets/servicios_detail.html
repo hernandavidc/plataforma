@@ -14,6 +14,7 @@
 </div>
 {% endblock %}
 {% block contentNext %}
+{% if servicios.mascota %}
 <div class="panel panel-headline col-sm-6">
     <div class="panel-heading">
       <div class="panel-body">
@@ -28,8 +29,10 @@
         </div>
     </div>
   </div>
-
   <div class="panel panel-headline col-sm-5 col-sm-offset-1">
+{% else %}
+  <div class="panel panel-headline col-sm-5">
+{% endif %}
       <div class="panel-heading">
         <div class="panel-body">
             <div class="row">
