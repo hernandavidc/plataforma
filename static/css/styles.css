@@ -77,5 +77,5 @@ footer p {
     margin-top: -70px;
     background: white;
     margin-bottom: 10px;}
-
+.modal-backdrop.show{background-color: rgba(0, 0, 0, 0.4);}
 
