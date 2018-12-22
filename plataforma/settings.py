@@ -30,7 +30,7 @@ DEBUG = True
 if DEBUG:
     ALLOWED_HOSTS = ["localhost", "127.0.0.1", "*"]
 else:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = [".libolive.com", "*"]
 
 # Application definition
 DJANGO_APPS = [
@@ -118,7 +118,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+AUTHENTICATION_BACKENDS = (
+    'registration.backends.EmailOrUsernameModelBackend', # our custom authentication backend
+    #'django.contrib.auth.backends.ModelBackend',
+    )
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
