@@ -7,6 +7,30 @@
 .row.\30 \25>*, .row.uniform.\30 \25>* {
     padding: 0;
 }
+#ns .row i{
+    font-size: 60px;
+    padding: 15px;
+    height: 100px;
+    width: 100px;
+    border-radius: 1000px;
+    border: 2px solid #86a9de;
+    background: #b5d6fb;
+    margin-bottom: 15px;
+    color: #2c8fa9;
+}
+#ns .row i.pet{border: 2px solid #7cd691;
+    background: #8cf1a4;
+    color: #4f865c;}
+#ns .row .text-center{   -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;}
+#ns .row .text-center:hover{    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #e4e4e4;
+    border-radius: 8px;}
+#ns .row .text-center:hover i{background: #92c5ff;}
+#ns .row .text-center:hover i.pet{background: #6dec8c;}
 .select-wrapper, header p, sub, sup {
     position: relative;
 }
