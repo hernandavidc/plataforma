@@ -80,7 +80,7 @@
                       <td>{{ servicio.mascota }}</td>
                       <td><a href="{% url 'service_detail' servicio.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                       <td><a href="{% url 'service_edit' servicio.id %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                      <td><a class="text-danger" href="{% url 'service_del' servicio.id %}"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>
+                      <td><a disabled class="text-danger pre-link" href="{% url 'service_del' servicio.id %}"><i class="fa fa-times-circle" aria-hidden="true"></i></a></td>
                   </tr>
               </tbody>
           {% endfor %}
@@ -124,7 +124,19 @@
 {% block Js %}
 <script>
 $(function() {
-    $('#myModal').modal('toggle')
+  $("a.pre-link").on("click", function(event){
+      if ($(this).is("[disabled]")) {
+        $(this).removeAttr("disabled");
+        alert('Para eliminar el servicio vuelve a hacer clic en el botón de eliminar')
+        event.preventDefault();
+        
+      }
+  });
+});
+</script>
+<script>
+$(function() {
+  $('#myModal').modal('toggle')
 });
 </script>
 {% endblock %}

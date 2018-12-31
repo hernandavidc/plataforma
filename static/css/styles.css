@@ -1,11 +1,6 @@
 body, *{padding: 0;margin: 0;}
-main{
-    padding-top: 20px;
-}
-:root {
-    --jumbotron-padding-y: 3rem;
-}
-
+main{    padding-top: 20px;}
+:root {    --jumbotron-padding-y: 3rem;}
 .jumbotron {
     padding-top: var(--jumbotron-padding-y);
     padding-bottom: var(--jumbotron-padding-y);
@@ -19,41 +14,24 @@ main{
     }
 }
 
-.jumbotron p:last-child {
-    margin-bottom: 0;
-}
-
-.jumbotron-heading {
-    font-weight: 300;
-}
-
-.jumbotron .container {
-max-width: 40rem;
-}
+.jumbotron p:last-child {    margin-bottom: 0;}
+.jumbotron-heading {    font-weight: 300;}
+.jumbotron .container {max-width: 40rem;}
 
 footer {
     padding-top: 3rem;
     padding-bottom: 3rem;
 }
 
-footer p {
-    margin-bottom: .25rem;
-}
+footer p {    margin-bottom: .25rem;}
 
-.box-shadow { 
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); 
-}
-
+.box-shadow {     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
 .panel.panel-headline .panel-heading .panel-title {
     margin-bottom: 8px;
     font-size: 22px;
     font-weight: normal;
 }
-
-.main-content {
-    padding: 28px 10px;
-}
-
+.main-content {    padding: 28px 10px;}
 #wrapper .brand .logo {
     color: #25a2c3;
     font-family: "Pacifico", cursive;
@@ -78,4 +56,4 @@ footer p {
     background: white;
     margin-bottom: 10px;}
 .modal-backdrop.show{background-color: rgba(0, 0, 0, 0.4);}
-
+a.pre-link[disabled] {    color: #a94442;}
