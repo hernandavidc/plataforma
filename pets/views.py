@@ -101,17 +101,21 @@ class serviceEdit(UpdateView):
                         if (datetime.date(datetime.strptime(request.POST['fechaInicio'], '%Y-%m-%d')) > lastSer.fechaFin):
                             #La fecha de inicio pedida es mayor a la de fin del ultimo servicio
                             servicio.fechaInicio = request.POST['fechaInicio']
-                            servicio.fechaFin = request.POST['fechaFin']
+                            if request.POST['fechaFin'] != '':
+                                servicio.fechaFin = request.POST['fechaFin']
                         else:
+                            #La mascota tiene un servicio activo
                             return HttpResponseRedirect('/servicios/?noF')
                     else:
                         servicio.fechaInicio = request.POST['fechaInicio']
-                        servicio.fechaFin = request.POST['fechaFin']
+                        if request.POST['fechaFin'] != '':
+                            servicio.fechaFin = request.POST['fechaFin']
                 else:
                     return HttpResponseRedirect('/servicios/?noM')
             else: 
                 servicio.fechaInicio = request.POST['fechaInicio']
-                servicio.fechaFin = request.POST['fechaFin']
+                if request.POST['fechaFin'] != '':
+                    servicio.fechaFin = request.POST['fechaFin']
             servicio.cc = request.POST['cliente']
             servicio.veterinaria = request.user.perfil_v
             servicio.tipo = TiposServicios.objects.get(id=request.POST['tipo'])

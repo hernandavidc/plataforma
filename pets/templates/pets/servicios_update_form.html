@@ -33,7 +33,7 @@
     </div>
     <div class="col-md-6">
         <label class="mylabel">Fecha de inicio: <small>{{form.fechaInicio.value}}</small> </label>
-        <input type="date" name="fechaInicio" class="form-control mt-3" value="{{form.fechaInicio.value|date:'Y-m-d'}}">
+        <input required type="date" name="fechaInicio" class="form-control mt-3" value="{{form.fechaInicio.value|date:'Y-m-d'}}">
     </div>
     <div class="col-md-6">
         <label class="mylabel">Fecha de fin: <small>{{form.fechaFin.value}}</small> </label>
