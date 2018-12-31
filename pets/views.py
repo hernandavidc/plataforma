@@ -6,6 +6,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.utils.datastructures import MultiValueDictKeyError
 from django.http import HttpResponseRedirect, JsonResponse, Http404
 from datetime import datetime, date
 
@@ -87,11 +88,14 @@ class serviceEdit(UpdateView):
         if form.is_valid():
             servicio = form.save(commit=False)
             if Cliente.objects.filter(cc=request.POST['cliente']).exists(): #Si existe el cliente con esa CC
-                m = Mascota.objects.get(id=request.POST['mascota']) #la mascota
+                try:
+                    m = Mascota.objects.get(id=request.POST['mascota']) #la mascota
+                except MultiValueDictKeyError:
+                    m = False
                 c = Cliente.objects.get(cc=request.POST['cliente']) #el cliente
-                print(request.POST['fechaInicio'])
-                if m in c.user.get_pets.all(): #Si la mascota pertenece a las mascotas del cliente
+                if m:
                     servicio.mascota = m
+                if m in c.user.get_pets.all() or not m: #Si la mascota pertenece a las mascotas del cliente
                     if Servicios.objects.filter(mascota=m).exists():
                         lastSer = Servicios.objects.filter(mascota=m).first()   #el ultimo servicio de la mascota
                         if (datetime.date(datetime.strptime(request.POST['fechaInicio'], '%Y-%m-%d')) > lastSer.fechaFin):
@@ -184,27 +188,34 @@ class ServicioCreate(CreateView):
         if form.is_valid():
             servicio = form.save(commit=False)
             if Cliente.objects.filter(cc=request.POST['cliente']).exists(): #Si existe el cliente con esa CC
-                m = Mascota.objects.get(id=request.POST['mascota']) #la mascota
+                try:
+                    m = Mascota.objects.get(id=request.POST['mascota']) #la mascota
+                except MultiValueDictKeyError:
+                    m = False
                 c = Cliente.objects.get(cc=request.POST['cliente']) #el cliente
-                print(request.POST['fechaInicio'])
-                if m in c.user.get_pets.all(): #Si la mascota pertenece a las mascotas del cliente
+                
+                if m:
                     servicio.mascota = m
+                if m in c.user.get_pets.all() or not m: #Si la mascota pertenece a las mascotas del cliente
                     if Servicios.objects.filter(mascota=m).exists():
                         lastSer = Servicios.objects.filter(mascota=m).first()   #el ultimo servicio de la mascota
                         if (datetime.date(datetime.strptime(request.POST['fechaInicio'], '%Y-%m-%d')) > lastSer.fechaFin):
                             #La fecha de inicio pedida es mayor a la de fin del ultimo servicio
                             servicio.fechaInicio = request.POST['fechaInicio']
-                            servicio.fechaFin = request.POST['fechaFin']
+                            if request.POST['fechaFin'] != '':
+                                servicio.fechaFin = request.POST['fechaFin']
                         else:
                             return HttpResponseRedirect('/servicios/?noF')
                     else:
                         servicio.fechaInicio = request.POST['fechaInicio']
-                        servicio.fechaFin = request.POST['fechaFin']
+                        if request.POST['fechaFin'] != '':
+                            servicio.fechaFin = request.POST['fechaFin']
                 else:
                     return HttpResponseRedirect('/servicios/?noM')
             else: 
                 servicio.fechaInicio = request.POST['fechaInicio']
-                servicio.fechaFin = request.POST['fechaFin']
+                if request.POST['fechaFin'] != '':
+                    servicio.fechaFin = request.POST['fechaFin']
             servicio.cc = request.POST['cliente']
             servicio.veterinaria = request.user.perfil_v
             servicio.tipo = TiposServicios.objects.get(id=request.POST['tipo'])
