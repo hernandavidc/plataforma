@@ -4,6 +4,28 @@
 {% block content %}
 {% if rol == 'c' %}
     {% include  'profiles/inicio_cliente.html' %}
+    {% if user.get_pets.count == 0 %}
+        <div class="modal small" id="modalNoMascota" role="dialog" aria-labelledby="modalNoMascotaLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalNoMascotaLabel">¡Hola, nos agrada verte!</h4>
+            </div>
+            <div class="modal-body">
+                <p>En Libolive nos apasiona acercarte a tus mascotas, recuerda que para aprovechar al máximo nuestros servicios debes tener registrados a tus compañeros peludos <i style="color:red" class="fa fa-heart"></i> </p>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'pet_add' %}" class="btn btn-primary">Registrar mascota</a>
+                <a class="btn btn-secondary" data-dismiss="modal">Cerrar</a>
+            </div>
+            </div>
+        </div>
+        </div>
+        {% block Js %}
+            <script src="{% static 'vendor/jquery/bootstrap.min.js' %}"></script>
+            <script>$(function() {$('#modalNoMascota').modal('show');});</script>
+        {% endblock %}
+    {% endif %}
 {% elif rol == 'v' %}
     {% include  'profiles/inicio_vete.html' %}
 {% endif %}
@@ -39,28 +61,5 @@
         </div><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 292.563px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
     </div>
 </div>
-{% if user.get_pets.count == 0 %}
-<div class="modal small" id="modalNoMascota" role="dialog" aria-labelledby="modalNoMascotaLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modalNoMascotaLabel">¡Hola, nos agrada verte!</h4>
-      </div>
-      <div class="modal-body">
-        <p>En Libolive nos apasiona acercarte a tus mascotas, recuerda que para aprovechar al maximo nuestros servicios debes tener registrados a tus compañeros peludos <i style="color:red" class="fa fa-heart"></i> </p>
-      </div>
-      <div class="modal-footer">
-        <a href="{% url 'pet_add' %}" class="btn btn-primary">Registrar mascota</a>
-        <a class="btn btn-secondary" data-dismiss="modal">Cerrar</a>
-      </div>
-    </div>
-  </div>
-</div>
-{% endif %}
-{% endblock %}
-{% block Js %}
-{% if user.get_pets.count == 0 %}
-<script src="{% static 'vendor/jquery/bootstrap.min.js' %}"></script>
-<script>$(function() {$('#modalNoMascota').modal('show');});</script>
-{% endif %}
+
 {% endblock %}
