@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Editar camara - {{camara.nombre}}{% endblock %}
+{% block content %}
+<div class="col-md-10 col-md-offset-1">
+<form method="post">{% csrf_token %}
+        <div class="col-md-6">
+            <p><label class="mylabel">Nombre</label></p>   
+            <input type="text" name="nombre" class="form-control" value="{{camara.nombre}}" maxlength="100" required="" id="id_nombre">
+        </div>
+        <div class="col-md-6">
+            <p><label class="mylabel">Descripción</label></p>   
+            <input type="text" name="descripcion" class="form-control" value="{{camara.descripcion}}" id="id_descripcion">
+        </div>
+    <div class="text-center">
+        <input class="btn btn-primary btn-block" type="submit" value="Guardar" />
+    </div>
+</form>
+</div>
+{% endblock %}

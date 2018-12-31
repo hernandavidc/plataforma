@@ -324,6 +324,21 @@ class camaraDetail(DetailView):
     model = Camara
 
 @method_decorator(login_required, name="dispatch")
+class camaraUpdate(UpdateView):
+    model = Camara
+    fields = ['nombre', 'descripcion']
+    template_name_suffix = '_update_form'
+    success_url = reverse_lazy('camara_list')
+
+    def get(self, request, *args, **kwargs):
+        camara = get_object_or_404(Camara, id=kwargs['pk'])
+        if camara in request.user.perfil_v.get_camaras.all():
+            self.object = self.get_object()
+            return super(UpdateView, self).get(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect('/camaras/')
+
+@method_decorator(login_required, name="dispatch")
 class listCamara(ListView):
     template_name = "pets/list_camara.html"
     paginate_by = 8

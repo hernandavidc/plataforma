@@ -23,6 +23,7 @@
                       <td>{{ camara.estado }}</td>
                       <td>{{ camara.created }}</td>
                       <td><a href="{% url 'camara_detail' camara.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                      <td><a href="{% url 'camara_edit' camara.id %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                   </tr>
               </tbody>
           {% endfor %}

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import camaraDetail, del_anotacion, serviceEdit, ServicioDelete, mascotaDetail, detailVeterinarias, listVeterinarias, listPet, add_anotacion, MascotaCreate, listServices, ServicioCreate, listCamara, CamaraCreate, MascotaUpdate, serviceDetail
+from .views import camaraUpdate, camaraDetail, del_anotacion, serviceEdit, ServicioDelete, mascotaDetail, detailVeterinarias, listVeterinarias, listPet, add_anotacion, MascotaCreate, listServices, ServicioCreate, listCamara, CamaraCreate, MascotaUpdate, serviceDetail
 
 urlpatterns = [
     path('mascotas/', listPet.as_view(), name='pet_list'),
@@ -16,6 +16,7 @@ urlpatterns = [
     path('camaras/', listCamara.as_view(), name='camara_list'),
     path('camaras/add/', CamaraCreate.as_view(), name='camara_add'),
     path('camaras/<int:pk>/', camaraDetail.as_view(), name='camara_detail'),
+    path('camaras/<int:pk>/edit/', camaraUpdate.as_view(), name='camara_edit'),
     path('veterinarias/', listVeterinarias.as_view(), name='veterinarias_list'),
     path('veterinarias/<int:pk>/', detailVeterinarias.as_view(), name='veterinaria_detail'),
 ]
