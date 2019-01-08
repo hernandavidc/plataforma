@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.utils.datastructures import MultiValueDictKeyError
 from django.http import HttpResponseRedirect, JsonResponse, Http404
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 from .forms import MascotaAddOwner, ServicioAdd, CamaraAdd
 
@@ -294,10 +294,18 @@ class serviceDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         #La fecha altual aun esta dentro del rango? 
-        if self.object.fechaFin >= date.today():
-            context['video'] = True
+        if not self.object.fechaFin:
+            dias = timedelta(days=3)
+            inicial_2 = self.object.fechaInicio + dias
+            if inicial_2 >= date.today():
+                context['video'] = True
+            else:
+                context['video'] = False
         else:
-            context['video'] = False
+            if self.object.fechaFin >= date.today():
+                context['video'] = True
+            else:
+                context['video'] = False
         return context
 
 @method_decorator(login_required, name="dispatch")
