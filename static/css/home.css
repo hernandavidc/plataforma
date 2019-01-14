@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import url(font-awesome.min.css);
-@import "https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:300,400|Pacifico";    *, .row,: after, :before {
+@import "https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:300,400|Pacifico";    
+*, .row, :after, :before {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
@@ -25,6 +26,8 @@
     -moz-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;}
+#ns .row .text-center img{max-width: 100%; height: 9em;}
+#ns .row .text-center .col-md-5{position: absolute; top: 5em;}
 #ns .row .text-center:hover{    padding: 10px;
     background: #f9f9f9;
     border: 1px solid #e4e4e4;
@@ -34,6 +37,7 @@
 .select-wrapper, header p, sub, sup {
     position: relative;
 }
+#three{    background: #f9f9f9;}
 .row:after, .row:before, .select-wrapper, .select-wrapper:before, article, aside, cite, details, figcaption, figure, footer, header, hgroup, label, menu, nav, pre code, section {
     display: block;
 }
@@ -144,6 +148,7 @@ body {
 .container {
     width: 90%!important;
 }
+#ns .row .text-center .col-md-5{position: relative;}
 }@media screen and (max-width:480px) {
     .container.\31 25\25 {
     width: 100%;
@@ -1444,9 +1449,11 @@ ul.icons li .icon:before {
 ul.actions {
     cursor: default;
     padding-left: 0;
+    display: inline-block;
+    margin: 0 auto 25px;
+    text-align: left;
 }
 ul.actions li {
-    display: inline-block;
     padding: 0 1em 0 0;
     vertical-align: middle;
 }
@@ -1687,11 +1694,26 @@ table.alt tfoot {
 .flex.flex-3 .flex-item.left {
     text-align: right;
 }
-.wrapper {
-    padding: 6em 0 4em;
-}
+.wrapper {    padding: 6em 0 4em;}
+.wrapper#one {    padding: 6em 8em 4em;}
 .wrapper h1, .wrapper h2, .wrapper h3, .wrapper h4, .wrapper h5 {
     color: #25a2c3;
+}
+.btn{text-decoration: none;}
+.btn-outline-success {
+    color: #28a745;
+    background-color: transparent;
+    background-image: none;
+    border-color: #28a745;
+    border: 2px solid;
+    font-weight: 700;
+}
+.scrolly.btn.btn-primary{font-weight: 700;
+background-color: #0099cc;}
+.btn-outline-success:hover {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
 }
 .wrapper.style1 {
     background: #f6755e;
@@ -2068,6 +2090,9 @@ table.alt tfoot {
 }
 #footer .icon {
     color: #f6755e;
+    background: #fff;
+    border-radius: 1000px;
+    padding: 6px 11px;
 }
 #footer a {
     color: #c8e7f0;
@@ -2075,6 +2100,7 @@ table.alt tfoot {
 }
 #footer ul li {
     padding: 0 2em;
+    margin-bottom: 15px;
 }
 #footer .copyright {
     display: inline-block;
