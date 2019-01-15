@@ -148,7 +148,8 @@ body {
 .container {
     width: 90%!important;
 }
-#ns .row .text-center .col-md-5{position: relative;}
+#ns .row .text-center .col-md-5{position: relative;    display: contents;}
+#ns .row .text-center {margin-bottom: 25px;}
 }@media screen and (max-width:480px) {
     .container.\31 25\25 {
     width: 100%;
@@ -1819,12 +1820,13 @@ background-color: #0099cc;}
     padding-top: 44px;
 }
 #header {
-    height: 44px;
-    line-height: 44px;
+    height: 4em;
+    line-height: 4em;
 }
 #header .logo {
-    font-size: 1.25em;
+    font-size: 3.25em;
     text-align: center;
+    margin-top: 1px;
 }
 #header nav a[href="#menu"] {
     font-size: 1.5em;
@@ -1927,6 +1929,9 @@ background-color: #0099cc;}
 }
 #menu {
     padding: 2.5em 1.75em;
+}
+.wrapper#one {
+    padding: 6em 0em 4em;
 }
 }#banner {
     margin-top: 0em;
