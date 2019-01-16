@@ -135,7 +135,7 @@ AUTHENTICATION_BACKENDS = (
 
 LANGUAGE_CODE = 'es-co'
 
-TIME_ZONE = 'America/Bogota'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
