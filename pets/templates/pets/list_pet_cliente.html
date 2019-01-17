@@ -11,7 +11,7 @@
   <tbody>
   {% for mascota in mascota_list %}
   
-    <tr>
+    <tr {% if not mascota.activo %} class="active" {% endif %}>
         <td>{{ mascota.id }}</td>
         <td>{{ mascota.nombre }}</td>
         <td>{{ mascota.raza }}</td>

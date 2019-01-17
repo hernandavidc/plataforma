@@ -24,18 +24,18 @@ class Mascota(models.Model):
     fechaDeNacimiento = models.DateField(verbose_name="Fecha de nacimiento", blank=True, null=True)
     avatar = models.ImageField(verbose_name="Foto",upload_to=custom_upload_to, null=True, blank=True)
     observaciones = models.TextField(null=True, blank=True)
-    activo = models.BooleanField()
+    activo = models.BooleanField(default=True, verbose_name="Perfil activo")
     tipo = models.CharField(max_length=1, choices= ANIMAL_CHOICE)
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 
-    def save(self, *args, **kwargs):
-        if not self.activo:
-              self.activo = True
-        super(Mascota, self).save(*args, **kwargs)
+    #def save(self, *args, **kwargs):
+    #    if not self.activo:
+    #          self.activo = True
+    #    super(Mascota, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ['id']
+        ordering = ['-activo','id']
 
     def __str__(self):
         return str(self.id) + " " + self.nombre

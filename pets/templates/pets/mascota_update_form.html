@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Mascota {% endblock %}
+{% block title %} Mascota {% if not mascota.activo %} - <u>Perfil desactivado</u> {% endif %} {% endblock %}
 {% block content %}
 <style>#avatar-clear_id{display:inline-block;width:20px;}
 label[for=id_avatar]{width:100%;}</style>
@@ -20,6 +20,7 @@ label[for=id_avatar]{width:100%;}</style>
             <input class="btn btn-primary btn-block" type="submit" value="Actualizar" />
         </div>
     </form>
+    <small> *¿{{mascota.nombre}} ya no te acompaña? <a href="{% url 'mascota_s_activo' mascota.id %}"> has clic aquí</a> para activar/desactivar su perfil </small>
 </div>
 <div class="col-md-6 col-sm-12">
     <h3>Anotaciones:</h3>

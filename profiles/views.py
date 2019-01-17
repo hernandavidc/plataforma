@@ -39,8 +39,9 @@ def checkClient(request, cc):
             mascotas = cliente.user.get_pets.all()
             mascotasList = []
             for mascota in mascotas:
-                data = [mascota.id, mascota.nombre]
-                mascotasList.append(data)
+                if mascota.activo:
+                    data = [mascota.id, mascota.nombre]
+                    mascotasList.append(data)
             if cliente.user.first_name or cliente.user.last_name:
                 nombre_completo = cliente.user.first_name + ' ' + cliente.user.last_name
             else:

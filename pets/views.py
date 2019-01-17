@@ -51,6 +51,15 @@ def ServicioDelete(request, servicioId):
         raise Http404("El usuario no esta autenticado")
     return HttpResponseRedirect('/servicios/')
 
+@login_required
+def switchActivoMascota(request, pk):
+    m = Mascota.objects.get(id=pk)
+    if m in request.user.get_pets.all():
+        new = not m.activo
+        m.activo = new
+        m.save()
+    return HttpResponseRedirect('/mascotas/')
+
 @method_decorator(login_required, name="dispatch")
 class serviceEdit(UpdateView):
     model = Servicios
@@ -95,7 +104,7 @@ class serviceEdit(UpdateView):
                 c = Cliente.objects.get(cc=request.POST['cliente']) #el cliente
                 if m:
                     servicio.mascota = m
-                if m in c.user.get_pets.all() or not m: #Si la mascota pertenece a las mascotas del cliente
+                if m in c.user.get_pets.all() and not m: #Si la mascota pertenece a las mascotas del cliente
                     if Servicios.objects.filter(mascota=m).exists():
                         lastSer = Servicios.objects.filter(mascota=m).first()   #el ultimo servicio de la mascota
                         if (datetime.date(datetime.strptime(request.POST['fechaInicio'], '%Y-%m-%d')) > lastSer.fechaFin):
@@ -187,7 +196,6 @@ class ServicioCreate(CreateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
         form = self.form_class(request.POST)
         if form.is_valid():
             servicio = form.save(commit=False)

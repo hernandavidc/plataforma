@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}
-{% endblock %}
 {% block content %}
 <style>.panel.panel-headline{display:none;}img#foto{border-radius: 1000px;}</style>
 {% endblock %}
@@ -9,7 +7,7 @@
 <div class="col-md-6 col-sm-12">
     <div class="col-sm-12 panel" style="padding:20px 0;">
         <p style="padding: 0 25px;
-    font-size: 20px;">Información General</p>
+    font-size: 20px;">Información General {% if not mascota.activo %} - <u> Perfil desactivado </u>{% endif %}</p>
         <ul class="nav navbar-nav navbar-right" style="    position: absolute;
         right: 0;
         top: 0;z-index:1000;">
