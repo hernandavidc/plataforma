@@ -1934,7 +1934,7 @@ background-color: #0099cc;}
     padding: 6em 0em 4em;
 }
 }#banner {
-    margin-top: 0em;
+    margin-top: 5em;
     padding: 8em 0 5em;
     background-size:  auto;
     background-position:  95% 85%;
@@ -2097,7 +2097,7 @@ background-color: #0099cc;}
     color: #c8e7f0;
 }
 #footer .icon {
-    color: #f6755e;
+    color: #e04124;
     background: #fff;
     border-radius: 1000px;
     padding: 6px 11px;
