@@ -82,11 +82,11 @@ class serviceEdit(UpdateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        mascota = get_object_or_404(Mascota, id=self.get_object().id)
+        mascota = self.get_object().mascota
         context['tipos_servicios'] = TiposServicios.objects.all()
         context['camaras'] = Camara.objects.filter(veterinaria=self.request.user.perfil_v)
         if mascota:
-            context['mascota'] = mascota.nombre
+            context['mascota'] = self.get_object().mascota.nombre
         else:
             context['mascota'] = ""
         return context
