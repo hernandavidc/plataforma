@@ -1344,6 +1344,7 @@ input[type=radio]+label:before {
     border: 1px solid #dee1e3;
     margin-bottom: 2em;
     overflow: hidden;
+    background: #f9f9f9;
 }
 #menu, .table-wrapper {
     -webkit-overflow-scrolling: touch;
