@@ -37,7 +37,7 @@
 .select-wrapper, header p, sub, sup {
     position: relative;
 }
-#three{    background: #f9f9f9;}
+#three{    background: url("../images/swirl_pattern.png");}
 .row:after, .row:before, .select-wrapper, .select-wrapper:before, article, aside, cite, details, figcaption, figure, footer, header, hgroup, label, menu, nav, pre code, section {
     display: block;
 }
