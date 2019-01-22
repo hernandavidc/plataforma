@@ -6,14 +6,16 @@ register = template.Library()
 
 @register.simple_tag
 def random_bg():
-    num = random.randint(0,4)
+    num = random.randint(0,5)
     if num == 0:
-        url = static('images/b1.jpg')
+        url = static('images/b-ver-mascota-online-1.png')
     elif num == 1:
-        url = static('images/b2.jpg')
+        url = static('images/b-ver-mascota-online-2.png')
     elif num == 2:
-        url = static('images/b3.jpg')
+        url = static('images/b-ver-mascota-online-3.png')
+    elif num == 3:
+        url = static('images/b-ver-mascota-online-4.png')
     else:
-        url = static('images/b4.jpg')
+        url = static('images/b-ver-mascota-online-5.png')
 
     return url
