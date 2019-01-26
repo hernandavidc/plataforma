@@ -1395,6 +1395,9 @@ dl dt, table th {
 .image.fit {
     margin: 0 0 2em;
 }
+#one .image.fit img{width: 70%;
+    margin: 0 15%;
+    max-height: 300px;}
 .image.round img {
     border-radius: 100%}
 .image.main {
