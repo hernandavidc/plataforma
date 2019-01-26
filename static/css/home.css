@@ -1512,9 +1512,7 @@ ul.actions li>* {
     width: 100%;
     margin: 0!important;
 }
-ul.actions li>.icon:before {
-    margin-left: -2em;
-}
+ /* ul.actions li>.icon:before {    margin-left: -2em;} */
 ul.actions.small li {
     padding: .5em 0 0;
 }
@@ -1984,10 +1982,12 @@ background-color: #0099cc;}
 }@media screen and (max-width:736px) {
     #banner {
     padding: 6em 4em 4em;
+    background-position-x: 84%;
 }
 }@media screen and (max-width:480px) {
     #banner {
     padding: 4em 2em 2em;
+    margin-top: 1em;
 }
 #banner h1 {
     font-size: 2em;
@@ -2141,10 +2141,9 @@ background-color: #0099cc;}
 }
 #footer ul li {
     font-size: .9em;
+    text-align: left;
 }
-#footer ul li .icon:before {
-    margin-left: -1em;
-}
+/* #footer ul li .icon:before {    margin-left: -1em;} */
 #footer .copyright {
     padding: 2em 0;
 }

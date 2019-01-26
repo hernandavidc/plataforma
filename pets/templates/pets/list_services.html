@@ -6,11 +6,11 @@
       <thead>
           <tr>
               <th> </th>
-              <th>Inicio</th>
-              <th>Fin</th>
-              <th>Tipo</th>
-              <th>Mascota</th>
-              <th> </th>
+              <th><p>Inicio</p></th>
+              <th><p>Fin</p></th>
+              <th><p>Tipo</p></th>
+              <th><p>Mascota</p></th>
+              <th><p style="text-align:center;">Visualizar</p></th>
           </tr>
       </thead>
     {% for servicio in servicios_list %}
@@ -21,7 +21,7 @@
                 <td>{{ servicio.fechaFin }}</td>
                 <td>{{ servicio.tipo }}</td>
                 <td>{{ servicio.mascota }}</td>
-                <td><a href="{% url 'service_detail' servicio.id %}"><i class="fa fa-chevron-circle-right"></i></a></td>
+                <td><p style="text-align:center;"><a href="{% url 'service_detail' servicio.id %}"><i class="fa fa-eye"></i></a></p> </td>
             </tr>
         </tbody>
     {% endfor %}
@@ -67,6 +67,7 @@
                     <th>Tipo</th>
                     <th>Cliente</th>
                     <th>Mascota</th>
+                    <th></th>
                 </tr>
             </thead>
           {% for servicio in servicios_list %}

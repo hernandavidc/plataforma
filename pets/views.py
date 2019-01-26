@@ -232,7 +232,6 @@ class ServicioCreate(CreateView):
             servicio.veterinaria = request.user.perfil_v
             servicio.tipo = TiposServicios.objects.get(id=request.POST['tipo'])
             servicio.camara = Camara.objects.get(id=request.POST['camara'])
-            print(request.user.id)
             servicio.save()
             return HttpResponseRedirect('/servicios/?ok')
         else:
