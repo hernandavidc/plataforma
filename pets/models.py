@@ -96,4 +96,4 @@ class Servicios(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return "Rut: " + self.veterinaria.rut + " Cc: " + str(self.cliente) 
+        return "Vet: " + self.veterinaria.user.username + " Tipo: " + str(self.tipo) + " Fecha: " + str(self.fechaInicio) 
