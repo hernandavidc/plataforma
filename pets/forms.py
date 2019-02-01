@@ -17,6 +17,12 @@ class MascotaAddOwner(forms.ModelForm):
             'raza':'Raza',
         }
 
+class ServicioUpdate(forms.ModelForm):
+
+    class Meta:
+        model = Servicios
+        fields = ['tipo', 'camara', 'cliente', 'mascota', 'fechaInicio', 'fechaFin']
+
 class CamaraAdd(forms.ModelForm):
 
     class Meta:

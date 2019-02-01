@@ -10,7 +10,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.http import HttpResponseRedirect, JsonResponse, Http404
 from datetime import datetime, date, timedelta
 
-from .forms import MascotaAddOwner, ServicioAdd, CamaraAdd
+from .forms import MascotaAddOwner, ServicioAdd, CamaraAdd, ServicioUpdate
 
 from plataforma.utils import get_rol, get_perfil
 from registration.models import Cliente, Veterinaria
@@ -64,7 +64,7 @@ def switchActivoMascota(request, pk):
 class serviceEdit(UpdateView):
     model = Servicios
     template_name_suffix = '_update_form'
-    fields = ['tipo', 'camara', 'cliente', 'mascota', 'fechaInicio', 'fechaFin']
+    form_class = ServicioUpdate
     widgets = {
         }
     success_url = reverse_lazy('servicios_list')
