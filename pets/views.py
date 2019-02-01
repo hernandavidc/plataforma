@@ -95,26 +95,23 @@ class serviceEdit(UpdateView):
         print(request.POST)
         form = self.form_class(request.POST)
         if form.is_valid():
-            servicio = form.save(commit=False)
+            servicio = Servicios.objects.get(id=kwargs['pk'])
             if Cliente.objects.filter(cc=request.POST['cliente']).exists(): #Si existe el cliente con esa CC
                 try:
                     m = Mascota.objects.get(id=request.POST['mascota']) #la mascota
+                    encontrado = True
                 except MultiValueDictKeyError:
-                    m = False
+                    encontrado = False
                 c = Cliente.objects.get(cc=request.POST['cliente']) #el cliente
                 if m:
                     servicio.mascota = m
-                if m in c.user.get_pets.all() and not m: #Si la mascota pertenece a las mascotas del cliente
+                print(c.user.get_pets.all())
+                print(m)
+                if m in c.user.get_pets.all() and encontrado: #Si la mascota pertenece a las mascotas del cliente
                     if Servicios.objects.filter(mascota=m).exists():
-                        lastSer = Servicios.objects.filter(mascota=m).first()   #el ultimo servicio de la mascota
-                        if (datetime.date(datetime.strptime(request.POST['fechaInicio'], '%Y-%m-%d')) > lastSer.fechaFin):
-                            #La fecha de inicio pedida es mayor a la de fin del ultimo servicio
-                            servicio.fechaInicio = request.POST['fechaInicio']
-                            if request.POST['fechaFin'] != '':
-                                servicio.fechaFin = request.POST['fechaFin']
-                        else:
-                            #La mascota tiene un servicio activo
-                            return HttpResponseRedirect('/servicios/?noF')
+                        servicio.fechaInicio = request.POST['fechaInicio']
+                        if request.POST['fechaFin'] != '':
+                            servicio.fechaFin = request.POST['fechaFin']
                     else:
                         servicio.fechaInicio = request.POST['fechaInicio']
                         if request.POST['fechaFin'] != '':
@@ -129,7 +126,6 @@ class serviceEdit(UpdateView):
             servicio.veterinaria = request.user.perfil_v
             servicio.tipo = TiposServicios.objects.get(id=request.POST['tipo'])
             servicio.camara = Camara.objects.get(id=request.POST['camara'])
-            print(request.user.id)
             servicio.save()
             return HttpResponseRedirect('/servicios/')
         else:
