@@ -139,7 +139,7 @@ class MascotaCreate(CreateView):
     success_url = reverse_lazy('pet_list')
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
+        #print(request.POST)
         form = self.form_class(request.POST)
         if form.is_valid():
             mascota = form.save(commit=False)

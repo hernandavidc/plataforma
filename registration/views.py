@@ -27,7 +27,7 @@ class SignupView(CreateView):
         return form
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
+        #print(request.POST)
         form = self.form_class(request.POST)
         if form.is_valid():
             user = form.save()
