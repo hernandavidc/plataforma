@@ -19,7 +19,7 @@ class Category(models.Model):
 
 class Page(models.Model):
     title = models.CharField(verbose_name="Título", max_length=200)
-    content = RichTextField(verbose_name="Contenido")
+    content = RichTextField(verbose_name="Contenido", config_name = 'default')
     order = models.SmallIntegerField(verbose_name="Orden", default=0)
     published = models.DateTimeField(verbose_name="Fecha de publicación", default=now)
     image = models.ImageField(verbose_name="Imagen", upload_to="blog", null=True, blank=True)

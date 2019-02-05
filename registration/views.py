@@ -26,6 +26,17 @@ class SignupView(CreateView):
         form.fields['password2'].widget = forms.PasswordInput(attrs={'class':'form-control mb-2', 'placeholder':'Repite la Contraseña'})
         return form
 
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            user = form.save()
+            perfil = Cliente(user=user)
+            perfil.cc = request.POST['cc']
+            perfil.save()
+            return HttpResponseRedirect('/accounts/login/?ok')
+        return render(request, self.template_name, {'form': form})
+
 class SignupVeteView(CreateView):
     form_class = UserCreationFormWithEmailVete
     template_name = 'registration/signup.html'

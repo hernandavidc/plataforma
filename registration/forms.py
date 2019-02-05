@@ -19,11 +19,11 @@ class UserCreationFormWithEmail(UserCreationForm):
             raise forms.ValidationError("El email ya está registrado, prueba con otro.")
         return email
 
-    def save(self):
-        user = super(UserCreationFormWithEmail, self).save()
-        perfil = Cliente(user=user)
-        perfil.save()
-        return user
+    #def save(self):
+    #   user = super(UserCreationFormWithEmail, self).save()
+    #    perfil = Cliente(user=user)
+    #    perfil.save()
+    #    return user
 
 class UserCreationFormWithEmailVete(UserCreationForm):
     email = forms.EmailField(required=True, help_text="Requerido 254 caracteres como máximo y debe ser valido")

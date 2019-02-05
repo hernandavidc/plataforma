@@ -9,6 +9,7 @@
       <div class="col-md-10 col-md-offset-1">
         <form action="" method="post">{% csrf_token %}
             {{form.as_p}}
+            <p><input type="number" name="cc" class="form-control mb-2" placeholder="Cédula de ciudadanía" id="id_cc" required></p>
           <p><input type="submit" class="btn-regis" value="Aceptar"></p>
           <p>
             ¿Ya tienes cuenta? <a href="{% url 'login' %}">inicia sesión</a>.
