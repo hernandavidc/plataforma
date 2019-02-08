@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import CreateView
 from django.views.generic.edit import UpdateView
