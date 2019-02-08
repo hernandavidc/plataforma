@@ -47,14 +47,18 @@
       </div>
     </div>
 {% endblock %}
-{% block Js %}
-<!-- 
-<script>
-$(function() {
-	   var intervalMS = 1000;
-	   setInterval(function() {
-	      $("#dynamicImage").prop("src", "{{servicios.camara.ip}}?" + new Date());
-	   }, intervalMS);
-	});
-</script> -->
-{% endblock %}
+
+{% if servicios.camara.ciclo %}
+    {% block Js %}
+    <script>
+    $(function() {
+        var c = 0;
+        var intervalMS = 3000;
+        setInterval(function() {
+            $("#dynamicImage").prop("src", "{{servicios.camara.ip}}?" + c);
+            c++;
+        }, intervalMS);
+        });
+    </script>
+    {% endblock %}
+{% endif %} 

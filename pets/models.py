@@ -71,6 +71,7 @@ class Camara(models.Model):
     estado = models.BooleanField(default=True)
     ip = models.CharField(verbose_name="Camara", max_length=150)
     veterinaria = models.ForeignKey(Veterinaria, related_name="get_camaras", on_delete=models.PROTECT)
+    ciclo = models.BooleanField(default=False, verbose_name="Url para foto, requiere ciclo")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 
