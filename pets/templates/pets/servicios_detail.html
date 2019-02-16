@@ -48,9 +48,12 @@
     </div>
 {% endblock %}
 
-{{ servicios.camara.ciclo  }}
-{% if servicios.camara.ciclo %}
-    {% block Js %}
+
+
+
+{% block Js %}
+    {% if servicios.camara.ciclo %}
+    {{ servicios.camara.ciclo }}
     <script>
     $(function() {
         var c = 0;
@@ -61,5 +64,5 @@
         }, intervalMS);
         });
     </script>
-    {% endblock %}
-{% endif %} 
+    {% endif %} 
+{% endblock %}
