@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'poa667ehq1(w_gndb2ty72*wjpevab(o7v2!%zuy004$!p%#j9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 if DEBUG:
@@ -56,6 +56,21 @@ THIRD_PARTY_APPS = [
 ]
 
 INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PARTY_APPS
+
+
+CKEDITOR_CONFIGS = {
+    'default' : {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',],
+            [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ],
+            ['Styles', 'Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor', 'Link', 'Unlink']
+        ],
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -158,3 +173,14 @@ LOGOUT_REDIRECT_URL = 'home'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+else:
+    pass
+    EMAIL_HOST = 'smtp.zoho.com'
+    EMAIL_HOST_USER = 'not-replay@libolive.com'
+    EMAIL_HOST_PASSWORD = 'WBuhJ2h6qkyJX4noAa'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_USE_SSL = False
