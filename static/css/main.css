@@ -74,8 +74,7 @@ footer {
 
 @media screen and (max-width: 767px) {
   #wrapper #sidebar-nav,
-  #wrapper .main {
-    padding-top: 130px; } }
+  #wrapper .main {    padding-top: 80px; } }
 
 .layout-fullwidth #wrapper .sidebar {
   left: -260px; }
