@@ -1987,20 +1987,15 @@ background-color: #0099cc;}
     padding: 6em 4em 4em;
     background-position-x: 84%;
 }
+#banner .button {    padding: 0 25px;}
 }@media screen and (max-width:480px) {
     #banner {
     padding: 4em 2em 2em;
     margin-top: 1em;
 }
-#banner h1 {
-    font-size: 2em;
-}
-#banner p {
-    font-size: 1em;
-}
-#banner .button {
-    font-size: .9em;
-}
+#banner h1 {    font-size: 2em;}
+#banner p {    font-size: 1em;}
+#banner .button {    font-size: .9em;}
 }body.is-loading #banner .content {
     opacity: 0;
     -moz-transform: translateY(1em);
