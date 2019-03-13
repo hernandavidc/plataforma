@@ -2105,6 +2105,10 @@ background-color: #0099cc;}
     background: #fff;
     border-radius: 1000px;
     padding: 6px 11px;
+    display: inline-block;
+    width: 36px;
+    height: 37px;
+    text-align: center;
 }
 #footer a {
     color: #c8e7f0;
