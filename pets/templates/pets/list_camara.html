@@ -29,7 +29,7 @@
               </tbody>
           {% endfor %}
           </table>
-          
+         </div> 
           <!-- Menú de paginación -->
           {% if is_paginated %}
           <nav aria-label="Page navigation">
@@ -60,7 +60,7 @@
             </ul>
           </nav>
           {% endif %}
-          </div>
+          
           <a href="{% url 'camara_add' %}" class="plus-a"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
          
     {% endif %}
