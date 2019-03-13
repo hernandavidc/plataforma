@@ -14,18 +14,12 @@ main{    padding-top: 20px;}
         padding-bottom: calc(var(--jumbotron-padding-y) * 2);
     }
 }
-
 .jumbotron p:last-child {    margin-bottom: 0;}
 .jumbotron-heading {    font-weight: 300;}
 .jumbotron .container {max-width: 40rem;}
-
-footer {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
-
+footer {    padding-top: 3rem;    padding-bottom: 3rem;}
+#msctDtl{padding:20px 0;}
 footer p {    margin-bottom: .25rem;}
-
 .box-shadow {     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
 .panel.panel-headline .panel-heading .panel-title {
     margin-bottom: 8px;
@@ -43,7 +37,6 @@ footer p {    margin-bottom: .25rem;}
 .bg-info{padding: 15px;}
 #wrapper input, #wrapper textarea {margin-bottom: 20px;}
 .plus-a{position: relative;bottom: 0%;left: 95%;font-size: 35px;}
-
 .container-vete{text-align: center;
     border: 2px solid #b9d0ec;
     padding: 18px;
@@ -58,3 +51,4 @@ footer p {    margin-bottom: .25rem;}
     margin-bottom: 10px;}
 .modal-backdrop.show{background-color: rgba(0, 0, 0, 0.4);}
 a.pre-link[disabled] {    color: #a94442;}
+@media screen and (max-width:736px){#msctDtl{padding:40px 0 20px;}}
