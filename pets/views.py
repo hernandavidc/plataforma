@@ -92,8 +92,11 @@ class serviceEdit(UpdateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
         form = self.form_class(request.POST)
+        print(request.POST['fechaInicio'])
+        print(request.POST['fechaFin'])
+        print("*****************")
+        print(form.is_valid())
         if form.is_valid():
             servicio = Servicios.objects.get(id=kwargs['pk'])
             if Cliente.objects.filter(cc=request.POST['cliente']).exists(): #Si existe el cliente con esa CC
@@ -105,8 +108,9 @@ class serviceEdit(UpdateView):
                 c = Cliente.objects.get(cc=request.POST['cliente']) #el cliente
                 if m:
                     servicio.mascota = m
-                print(c.user.get_pets.all())
-                print(m)
+                
+                print(request.POST['fechaInicio'])
+                print(request.POST['fechaFin'])
                 if m in c.user.get_pets.all() and encontrado: #Si la mascota pertenece a las mascotas del cliente
                     if Servicios.objects.filter(mascota=m).exists():
                         servicio.fechaInicio = request.POST['fechaInicio']
@@ -129,6 +133,7 @@ class serviceEdit(UpdateView):
             servicio.save()
             return HttpResponseRedirect('/servicios/')
         else:
+            print( (request, "Error"))
             return HttpResponseRedirect('/servicios/?error')
         return render(request, self.template_name, {'form': form})
 
@@ -207,7 +212,18 @@ class ServicioCreate(CreateView):
                 if m in c.user.get_pets.all() or not m: #Si la mascota pertenece a las mascotas del cliente
                     if Servicios.objects.filter(mascota=m).exists():
                         lastSer = Servicios.objects.filter(mascota=m).first()   #el ultimo servicio de la mascota
-                        if (datetime.date(datetime.strptime(request.POST['fechaInicio'], '%Y-%m-%d')) > lastSer.fechaFin):
+                        if lastSer.fechaFin:
+                            fechaFin = datetime(lastSer.fechaFin.year, lastSer.fechaFin.month, lastSer.fechaFin.day, lastSer.fechaFin.hour, lastSer.fechaFin.minute)
+                        else:
+                            fechaFin =  lastSer.fechaInicio + timedelta(days=3)
+                            fechaFin = datetime(fechaFin.year, fechaFin.month, fechaFin.day, fechaFin.hour, fechaFin.minute)
+                        print(request.POST['fechaInicio'])
+                        año = int(request.POST['fechaInicio'][:4])
+                        mes = int(request.POST['fechaInicio'][5:7])
+                        dia = int(request.POST['fechaInicio'][8:10])
+                        hora = int(request.POST['fechaInicio'][11:13])
+                        mins = int(request.POST['fechaInicio'][14:16])
+                        if (datetime(año,mes, dia, hora, mins) > fechaFin):
                             #La fecha de inicio pedida es mayor a la de fin del ultimo servicio
                             servicio.fechaInicio = request.POST['fechaInicio']
                             if request.POST['fechaFin'] != '':
@@ -297,15 +313,17 @@ class serviceDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         #La fecha altual aun esta dentro del rango? 
-        if not self.object.fechaFin:
+        if not self.object.fechaInicio:
+            context['video'] = False
+        elif not self.object.fechaFin:
             dias = timedelta(days=3)
             inicial_2 = self.object.fechaInicio + dias
-            if inicial_2 >= date.today():
+            if datetime(inicial_2.year, inicial_2.month, inicial_2.day, inicial_2.hour, inicial_2.minute) >= datetime.now():
                 context['video'] = True
             else:
                 context['video'] = False
         else:
-            if self.object.fechaFin >= date.today():
+            if datetime(self.object.fechaFin.year, self.object.fechaFin.month, self.object.fechaFin.day, self.object.fechaFin.hour, self.object.fechaFin.minute) >= datetime.now():
                 context['video'] = True
             else:
                 context['video'] = False

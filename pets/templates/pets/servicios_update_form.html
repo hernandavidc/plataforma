@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Editar servicio{% endblock %}
+{% block stylesBlock %}
+    <link href="{% static 'vendor/datetimepicker/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
+{% endblock %}    
 {% block content %}
 <div class="col-md-10 col-md-offset-1">
 <form action="" method="post">
@@ -31,13 +34,23 @@
         {% endfor %}
         </select>
     </div>
-    <div class="col-md-6">
-        <label class="mylabel">Fecha de inicio: <small>{{form.fechaInicio.value}}</small> </label>
-        <input required type="date" name="fechaInicio" class="form-control mt-3" value="{{form.fechaInicio.value|date:'Y-m-d'}}">
+    <div class="col-md-6" style="margin:0 0 29px; ">
+        <label class="mylabel">Fecha de inicio: <small>{{form.fechaInicio.value}}</small></label>
+        <div class="input-group date form_datetime contfecha" data-date-format="dd MM yyyy - HH:ii " data-link-field="fechaInicio">
+            <input style="margin:0px;    background: #fff;    border: none;" class="form-control mt-3" size="16" type="text"  value="{{form.fechaInicio.value|date:'d M y - H:i '}}" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+            <input type="hidden" id="fechaInicio" value="{{form.fechaInicio.value|date:'Y-m-d H:i'}}" name="fechaInicio" />
+        </div>
     </div>
-    <div class="col-md-6">
-        <label class="mylabel">Fecha de fin: <small>{{form.fechaFin.value}}</small> </label>
-        <input type="date" name="fechaFin" class="form-control mt-3" value="{{form.fechaFin.value|date:'Y-m-d'}}">
+    <div class="col-md-6" style="margin:0 0 29px; ">
+        <label class="mylabel">Fecha de fin: <small>{{form.fechaFin.value}}</small></label>
+        <div class="input-group date form_datetime contfecha" data-date-format="dd MM yyyy - HH:ii " data-link-field="fechaFin">
+            <input style="margin:0px;    background: #fff;    border: none;" class="form-control mt-3" size="16" type="text" value="{{form.fechaFin.value|date:'d M y - H:i '}}" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+        </div>
+        <input type="hidden" id="fechaFin" value="{{form.fechaFin.value|date:'d M y - H:i '}}" name="fechaFin" />
     </div>
     <div class="text-center">
         <input class="btn btn-primary btn-block" type="submit" value="Guardar servicio" />
@@ -46,6 +59,20 @@
 </div>
 {% endblock %}
 {% block Js %}
+<script type="text/javascript" src="{% static 'vendor/datetimepicker/bootstrap-datetimepicker.js' %}" charset="UTF-8"></script>
+<script type="text/javascript" src="{% static 'vendor/datetimepicker/locales/bootstrap-datetimepicker.fr.js' %}" charset="UTF-8"></script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+</script>
 <script>
     $( document ).ready(function() {
         var origin  = window.location.origin;

@@ -80,8 +80,8 @@ class Camara(models.Model):
 
 
 class Servicios(models.Model):
-    fechaInicio = models.DateField(verbose_name="Fecha de inicio", blank=True, null=True)
-    fechaFin = models.DateField(verbose_name="Fecha final", blank=True, null=True)
+    fechaInicio = models.DateTimeField(verbose_name="Fecha de inicio", blank=True, null=True)
+    fechaFin = models.DateTimeField(verbose_name="Fecha final", blank=True, null=True)
     tipo = models.ForeignKey(TiposServicios, on_delete=models.PROTECT)
     camara = models.ForeignKey(Camara, on_delete=models.PROTECT, related_name='get_servicios')
     cliente = models.PositiveIntegerField(verbose_name="Cc dueño")

@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Añadir servicio{% endblock %}
+{% block stylesBlock %}
+    <link href="{% static 'vendor/datetimepicker/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
+    <style>
+        .contfecha{
+            -moz-box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 5px;
+    border-color: #eaeaea;
+    background-color: #fcfcfc;
+    border: 1px solid #ccc;
+        }
+    </style>
+{% endblock %}
 {% block content %}
 <div class="col-md-10 col-md-offset-1">
 <form action="" method="post">
@@ -31,13 +47,23 @@
         {% endfor %}
         </select>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="margin:0 0 29px; ">
         <label class="mylabel">Fecha de inicio</label>
-        <input placeholder="AAAA-MM-DD" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" type="date" name="fechaInicio" class="form-control mt-3" value="">
+        <div class="input-group date form_datetime contfecha" data-date-format="dd MM yyyy - HH:ii p" data-link-field="fechaInicio">
+            <input style="margin:0px;    background: #fff;    border: none;" class="form-control mt-3" size="16" type="text" value="" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+        </div>
+        <input type="hidden" id="fechaInicio" value="" name="fechaInicio" />
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6"  style="margin:0 0 29px; ">
         <label class="mylabel">Fecha de fin</label>
-        <input placeholder="AAAA-MM-DD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" type="date" name="fechaFin" class="form-control mt-3" value="">
+        <div class="input-group date form_datetime contfecha" data-date-format="dd MM yyyy - HH:ii p" data-link-field="fechaFin">
+            <input style="margin:0px;    background: #fff;    border: none;" class="form-control mt-3" size="16" type="text" value="" readonly>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+        </div>
+        <input type="hidden" id="fechaFin" value="" name="fechaFin" />
     </div>
     <div class="text-center">
         <input class="btn btn-primary btn-block" type="submit" value="Agregar servicio" />
@@ -46,6 +72,20 @@
 </div>
 {% endblock %}
 {% block Js %}
+<script type="text/javascript" src="{% static 'vendor/datetimepicker/bootstrap-datetimepicker.js' %}" charset="UTF-8"></script>
+<script type="text/javascript" src="{% static 'vendor/datetimepicker/locales/bootstrap-datetimepicker.fr.js' %}" charset="UTF-8"></script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+</script>
 <script>
     $( "#cc" ).keyup(function() {
         var origin   = window.location.origin;
