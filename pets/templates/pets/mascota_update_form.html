@@ -8,7 +8,7 @@ label[for=id_avatar]{width:100%;}</style>
     <form method="post" enctype="multipart/form-data">{% csrf_token %}
         {% if mascota.avatar %}
             <p class="text-center">
-                <img src="{{mascota.avatar.url}}" height="200" class="mx-auto d-block img-rounded imagen">
+                <img src="{{mascota.avatar.url}}" height="200" class="mx-auto d-block img-rounded imagen" style="max-width: 100%;">
             </p>
         {% else %}
             <p class="text-center">

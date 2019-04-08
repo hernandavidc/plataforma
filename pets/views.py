@@ -63,10 +63,9 @@ def switchActivoMascota(request, pk):
 @method_decorator(login_required, name="dispatch")
 class serviceEdit(UpdateView):
     model = Servicios
+    template_name = 'pets/servicios_update_form.html'
     template_name_suffix = '_update_form'
     form_class = ServicioUpdate
-    widgets = {
-        }
     success_url = reverse_lazy('servicios_list')
 
     def get(self, request, *args, **kwargs):
@@ -76,9 +75,9 @@ class serviceEdit(UpdateView):
                 self.object = servicio
                 return super(UpdateView, self).get(request, *args, **kwargs)
             else:
-                return HttpResponseRedirect('/servicios/')
+                return HttpResponseRedirect(reverse_lazy('servicios_list'))
         else:
-            return HttpResponseRedirect('/servicios/')
+            return HttpResponseRedirect(reverse_lazy('servicios_list'))
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -99,43 +98,40 @@ class serviceEdit(UpdateView):
         print(form.is_valid())
         if form.is_valid():
             servicio = Servicios.objects.get(id=kwargs['pk'])
-            if Cliente.objects.filter(cc=request.POST['cliente']).exists(): #Si existe el cliente con esa CC
-                try:
-                    m = Mascota.objects.get(id=request.POST['mascota']) #la mascota
-                    encontrado = True
-                except MultiValueDictKeyError:
-                    encontrado = False
-                c = Cliente.objects.get(cc=request.POST['cliente']) #el cliente
-                if m:
-                    servicio.mascota = m
-                
-                print(request.POST['fechaInicio'])
-                print(request.POST['fechaFin'])
-                if m in c.user.get_pets.all() and encontrado: #Si la mascota pertenece a las mascotas del cliente
-                    if Servicios.objects.filter(mascota=m).exists():
-                        servicio.fechaInicio = request.POST['fechaInicio']
-                        if request.POST['fechaFin'] != '':
-                            servicio.fechaFin = request.POST['fechaFin']
+            if request.POST['fechaInicio'] != '':
+                if Cliente.objects.filter(cc=request.POST['cliente']).exists(): #Si existe el cliente con esa CC
+                    try:
+                        m = Mascota.objects.get(id=request.POST['mascota']) #la mascota
+                        encontrado = True
+                    except MultiValueDictKeyError:
+                        encontrado = False
+                    c = Cliente.objects.get(cc=request.POST['cliente']) #el cliente
+                    if m:
+                        servicio.mascota = m
+                    if m in c.user.get_pets.all() and encontrado: #Si la mascota pertenece a las mascotas del cliente
+                        if Servicios.objects.filter(mascota=m).exists():
+                            servicio.fechaInicio = request.POST['fechaInicio']
+                            if request.POST['fechaFin'] != '':
+                                servicio.fechaFin = request.POST['fechaFin']
+                        else:
+                            servicio.fechaInicio = request.POST['fechaInicio']
+                            if request.POST['fechaFin'] != '':
+                                servicio.fechaFin = request.POST['fechaFin']
                     else:
-                        servicio.fechaInicio = request.POST['fechaInicio']
-                        if request.POST['fechaFin'] != '':
-                            servicio.fechaFin = request.POST['fechaFin']
-                else:
-                    return HttpResponseRedirect('/servicios/?noM')
-            else: 
-                servicio.fechaInicio = request.POST['fechaInicio']
-                if request.POST['fechaFin'] != '':
-                    servicio.fechaFin = request.POST['fechaFin']
-            servicio.cc = request.POST['cliente']
-            servicio.veterinaria = request.user.perfil_v
+                        return HttpResponseRedirect('/servicios/?noM')
+                else: 
+                    servicio.fechaInicio = request.POST['fechaInicio']
+                    if request.POST['fechaFin'] != '':
+                        servicio.fechaFin = request.POST['fechaFin']
+            print(request.POST['cliente'])
+            servicio.cliente = request.POST['cliente']
             servicio.tipo = TiposServicios.objects.get(id=request.POST['tipo'])
             servicio.camara = Camara.objects.get(id=request.POST['camara'])
             servicio.save()
-            return HttpResponseRedirect('/servicios/')
         else:
             print( (request, "Error"))
             return HttpResponseRedirect('/servicios/?error')
-        return render(request, self.template_name, {'form': form})
+        return HttpResponseRedirect(reverse_lazy('servicios_list'))
 
 @method_decorator(login_required, name="dispatch")
 class MascotaCreate(CreateView):
@@ -200,6 +196,8 @@ class ServicioCreate(CreateView):
         form = self.form_class(request.POST)
         if form.is_valid():
             servicio = form.save(commit=False)
+            if request.POST['fechaInicio'] == '':
+                return HttpResponseRedirect('/servicios/add/?noFI')
             if Cliente.objects.filter(cc=request.POST['cliente']).exists(): #Si existe el cliente con esa CC
                 try:
                     m = Mascota.objects.get(id=request.POST['mascota']) #la mascota

@@ -126,6 +126,10 @@
                 <p class="bg-info">
                   Error al agregar el servicio, la mascota tiene un servicio activo. 
                 </p>
+              {% elif 'noFI' in request.GET and 'servicios' in request.path %}
+                <p class="bg-info">
+                  Error al agregar el servicio, el servicio requiere fecha de inicio. 
+                </p>
               {% endif %}
             <!-- TITLE CONTENT -->
             <div class="panel panel-headline">
