@@ -92,10 +92,6 @@ class serviceEdit(UpdateView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        print(request.POST['fechaInicio'])
-        print(request.POST['fechaFin'])
-        print("*****************")
-        print(form.is_valid())
         if form.is_valid():
             servicio = Servicios.objects.get(id=kwargs['pk'])
             if request.POST['fechaInicio'] != '':
